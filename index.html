@@ -1,1 +1,1197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiesta Restaurant — Gift Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b0b;
+            color: #e8e8e8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 15% 30%, rgba(255,255,255,0.02) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(255,255,255,0.015) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo-png { height: 36px; width: auto; }
+
+        .nav-badge {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 2px;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .left-column { position: sticky; top: 100px; }
+
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .hero-text h1 em {
+            font-style: italic;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* ========== BANK CARD ========== */
+        .bank-card {
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 1.586/1;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(135deg, #1a2418 0%, #0f1a0e 40%, #0a1208 100%);
+        }
+
+        .bank-card:hover { transform: translateY(-6px); }
+
+        .bank-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.8s;
+            z-index: 2;
+        }
+
+        .bank-card:hover::before { left: 100%; }
+
+        .bank-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            z-index: 3;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 4;
+        }
+
+        .card-chip {
+            width: 42px;
+            height: 30px;
+            background: linear-gradient(135deg, #c9b06b, #a8944f);
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .card-chip::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%; height: 50%;
+            border: 1px solid rgba(0,0,0,0.25);
+            border-radius: 2px;
+        }
+
+        .card-brand-logo { height: 30px; width: auto; }
+
+        .card-number {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.35rem;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 4;
+            font-weight: 400;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 4;
+        }
+
+        .card-holder-label, .card-amount-label {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.4rem;
+        }
+
+        .card-amount-label { text-align: right; }
+
+        .card-holder-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .card-amount-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* ========== AMOUNT ========== */
+        .amount-section { margin-top: 2.5rem; }
+
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .amount-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .amount-btn:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+        }
+
+        .amount-btn.active {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .amount-btn .price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .amount-btn.active .price { color: #ffffff; }
+
+        .amount-btn .label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 300;
+        }
+
+        .features {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 300;
+        }
+
+        .feature-dot {
+            width: 4px; height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        /* ========== FORM ========== */
+        .form-panel {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .form-header { margin-bottom: 2rem; }
+
+        .form-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .form-header p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.92rem;
+            font-weight: 300;
+        }
+
+        .whatsapp-banner {
+            background: rgba(37, 211, 102, 0.06);
+            border: 1px solid rgba(37, 211, 102, 0.15);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .whatsapp-icon {
+            width: 36px; height: 36px;
+            background: rgba(37, 211, 102, 0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-icon svg { width: 20px; height: 20px; fill: #25d366; }
+
+        .whatsapp-text {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .whatsapp-text strong { color: #ffffff; font-weight: 500; }
+
+        .form-section { margin-bottom: 1.75rem; }
+
+        .form-section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .step-badge {
+            width: 22px; height: 22px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .step-title {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .input-group { margin-bottom: 1rem; }
+
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .input-group label .required { color: rgba(255,255,255,0.6); }
+
+        .form-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            outline: none;
+            font-weight: 300;
+        }
+
+        .form-input:focus {
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .form-input::placeholder { color: rgba(255,255,255,0.2); }
+
+        textarea.form-input { resize: vertical; min-height: 80px; }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            margin-top: 0.4rem;
+        }
+
+        .account-input-wrapper { position: relative; }
+
+        .account-input-wrapper .form-input {
+            padding-left: 2.8rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .account-prefix {
+            position: absolute;
+            left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.35);
+            font-weight: 500;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        .account-hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 0.4rem;
+            font-style: italic;
+        }
+
+        .summary-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.55);
+            font-weight: 300;
+        }
+
+        .summary-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 1rem 0;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-total .label {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .summary-total .value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .whatsapp-button {
+            width: 100%;
+            padding: 1.15rem;
+            background: #25d366;
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .whatsapp-button svg { width: 20px; height: 20px; fill: #ffffff; flex-shrink: 0; }
+
+        .whatsapp-button:hover {
+            background: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25);
+        }
+
+        .pdf-button {
+            width: 100%;
+            padding: 1.15rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .pdf-button svg { width: 18px; height: 18px; stroke: #ffffff; flex-shrink: 0; }
+
+        .pdf-button:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .cta-note {
+            text-align: center;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 1rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .cta-note strong { color: rgba(255,255,255,0.5); font-weight: 500; }
+
+        .steps-info {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .steps-info-title {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .step-info-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.85rem;
+            align-items: flex-start;
+        }
+
+        .step-info-num {
+            width: 20px; height: 20px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-info-text {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        footer {
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo { height: 24px; width: auto; opacity: 0.6; }
+
+        .footer-info {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+        }
+
+        /* ========== PDF TEMPLATE ========== */
+        #pdf-template {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 850px;
+            background: #0b0b0b;
+            padding: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pdf-card {
+            width: 100%;
+            max-width: 760px;
+            aspect-ratio: 1.586/1;
+            border-radius: 28px;
+            padding: 45px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            background: linear-gradient(135deg, #1a2418 0%, #0f1a0e 40%, #0a1208 100%);
+        }
+
+        .pdf-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            z-index: 3;
+        }
+
+        .pdf-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 4;
+        }
+
+        .pdf-chip {
+            width: 65px; height: 46px;
+            background: linear-gradient(135deg, #c9b06b, #a8944f);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .pdf-chip::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%; height: 50%;
+            border: 1px solid rgba(0,0,0,0.25);
+            border-radius: 3px;
+        }
+
+        .pdf-logo { height: 40px; width: auto; }
+
+        .pdf-number {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 26px;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 30px;
+            font-weight: 400;
+            position: relative;
+            z-index: 4;
+        }
+
+        .pdf-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 4;
+        }
+
+        .pdf-holder-label, .pdf-amount-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 6px;
+        }
+
+        .pdf-amount-label { text-align: right; }
+
+        .pdf-holder-name {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .pdf-amount-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 34px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .pdf-info {
+            max-width: 760px;
+            margin: 25px auto 0;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .pdf-info strong {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 3rem 2rem;
+            }
+            .left-column { position: static; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .bank-card { max-width: 100%; }
+        }
+
+        @media (max-width: 640px) {
+            header { padding: 1rem 1.5rem; }
+            .main-container { padding: 2rem 1.5rem; }
+            .hero-text h1 { font-size: 2rem; }
+            .amount-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-row { grid-template-columns: 1fr; }
+            .form-panel { padding: 1.5rem; }
+            .bank-card { padding: 1.5rem; }
+            .card-number { font-size: 1.1rem; letter-spacing: 2px; }
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text { animation: fadeInUp 0.6s ease-out; }
+        .bank-card { animation: fadeInUp 0.6s ease-out 0.1s both; }
+        .form-panel { animation: fadeInUp 0.6s ease-out 0.2s both; }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <header>
+        <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="logo-png">
+        <div class="nav-badge">GIFT CARDS</div>
+    </header>
+
+    <div class="main-container">
+        <div class="left-column">
+            <div class="hero-text">
+                <div class="section-label">Digital Gift Card</div>
+                <h1>Regala una <em>experiencia</em> única</h1>
+                <p>Tarjeta digital con código verificable. Entrega inmediata por email. Válida 12 meses.</p>
+            </div>
+
+            <!-- BANK CARD -->
+            <div class="bank-card" id="bankCard">
+                <div class="card-top">
+                    <div class="card-chip"></div>
+                    <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="card-brand-logo">
+                </div>
+
+                <div class="card-number" id="cardNumber">FST-6GUS-YFTV-NHL6</div>
+
+                <div class="card-bottom">
+                    <div>
+                        <div class="card-holder-label">Titular</div>
+                        <div class="card-holder-name" id="cardHolder">CARLOS RUIZ</div>
+                    </div>
+                    <div>
+                        <div class="card-amount-label">Monto</div>
+                        <div class="card-amount-value" id="cardAmount">S/ 1,000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AMOUNT -->
+            <div class="amount-section">
+                <div class="section-label">Seleccionar Monto</div>
+                <div class="amount-grid">
+                    <div class="amount-btn" data-amount="500">
+                        <div class="price">S/ 500</div>
+                        <div class="label">Cena íntima</div>
+                    </div>
+                    <div class="amount-btn active" data-amount="1000">
+                        <div class="price">S/ 1,000</div>
+                        <div class="label">Celebración</div>
+                    </div>
+                    <div class="amount-btn" data-amount="1500">
+                        <div class="price">S/ 1,500</div>
+                        <div class="label">Evento especial</div>
+                    </div>
+                    <div class="amount-btn" data-amount="2000">
+                        <div class="price">S/ 2,000</div>
+                        <div class="label">Gran fiesta</div>
+                    </div>
+                    <div class="amount-btn" data-amount="2500">
+                        <div class="price">S/ 2,500</div>
+                        <div class="label">Corporativo</div>
+                    </div>
+                    <div class="amount-btn" data-amount="3000">
+                        <div class="price">S/ 3,000</div>
+                        <div class="label">Exclusivo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-dot"></div>
+                    Código verificable
+                </div>
+                <div class="feature">
+                    <div class="feature-dot"></div>
+                    Entrega inmediata
+                </div>
+                <div class="feature">
+                    <div class="feature-dot"></div>
+                    Vigencia 12 meses
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-panel">
+            <div class="form-header">
+                <h2>Coordina tu compra</h2>
+                <p>Completa los datos y envíanos tu pedido por WhatsApp</p>
+            </div>
+
+            <div class="whatsapp-banner">
+                <div class="whatsapp-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+                <div class="whatsapp-text">
+                    <strong>Compra coordinada por WhatsApp</strong><br>
+                    Nuestro encargado te atenderá personalmente y te enviará el código de tu Gift Card.
+                </div>
+            </div>
+
+            <form id="giftCardForm">
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="step-badge">1</div>
+                        <div class="step-title">Tus datos</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Nombre completo <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="buyerName" value="María Gómez" placeholder="Tu nombre">
+                        </div>
+                        <div class="input-group">
+                            <label>Tu WhatsApp <span class="required">*</span></label>
+                            <input type="tel" class="form-input" id="buyerPhone" value="+51 987 654 321" placeholder="+51 9XX XXX XXX">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="step-badge">2</div>
+                        <div class="step-title">Destinatario del regalo</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>Nombre <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="recipientName" value="Carlos Ruiz" placeholder="Nombre del destinatario">
+                        </div>
+                        <div class="input-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" class="form-input" id="recipientEmail" value="carlos@email.com" placeholder="email@destinatario.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="step-badge">3</div>
+                        <div class="step-title">Datos de pago</div>
+                    </div>
+                    <div class="input-group">
+                        <label>Número de cuenta (transferencia) <span class="required">*</span></label>
+                        <div class="account-input-wrapper">
+                            <span class="account-prefix">N°</span>
+                            <input type="text" class="form-input" id="accountNumber" placeholder="Ingresa tu número de cuenta" value="">
+                        </div>
+                        <div class="account-hint">Este número será verificado por nuestro encargado para confirmar tu pago</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="step-badge">4</div>
+                        <div class="step-title">Mensaje (opcional)</div>
+                    </div>
+                    <div class="input-group">
+                        <textarea class="form-input" id="dedication" placeholder="Escribe un mensaje especial para el destinatario...">¡Feliz cumpleaños! Que lo celebres como te mereces.</textarea>
+                        <div class="char-count"><span id="charCount">0</span> / 280</div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>Gift Card · <span id="summaryLabel">Celebración</span></span>
+                        <span id="summaryAmount">S/ 1,000</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Para · <span id="summaryRecipient">Carlos Ruiz</span></span>
+                        <span>Digital</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Cuenta · <span id="summaryAccount">—</span></span>
+                        <span>Transferencia</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-total">
+                        <span class="label">Total</span>
+                        <span class="value" id="totalAmount">S/ 1,000</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="whatsapp-button" onclick="sendToWhatsApp()">
+                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Enviar pedido por WhatsApp
+                    </button>
+                    <button type="button" class="pdf-button" onclick="downloadPDF()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Descargar Gift Card en PDF
+                    </button>
+                </div>
+
+                <p class="cta-note">
+                    <strong>¿Cómo funciona?</strong><br>
+                    1. Descarga tu Gift Card en PDF<br>
+                    2. Envía tu pedido por WhatsApp con el comprobante<br>
+                    3. Recibe la confirmación y el código activado
+                </p>
+            </form>
+
+            <div class="steps-info">
+                <div class="steps-info-title">Proceso de compra</div>
+                <div class="step-info-item">
+                    <div class="step-info-num">1</div>
+                    <div class="step-info-text">Elige el monto de tu Gift Card</div>
+                </div>
+                <div class="step-info-item">
+                    <div class="step-info-num">2</div>
+                    <div class="step-info-text">Descarga tu Gift Card en PDF</div>
+                </div>
+                <div class="step-info-item">
+                    <div class="step-info-num">3</div>
+                    <div class="step-info-text">Envía tu pedido por WhatsApp con tu número de cuenta</div>
+                </div>
+                <div class="step-info-item">
+                    <div class="step-info-num">4</div>
+                    <div class="step-info-text">Recibe la confirmación y el código activado por email</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF TEMPLATE -->
+    <div id="pdf-template">
+        <div class="pdf-card" id="pdfCard">
+            <div class="pdf-top">
+                <div class="pdf-chip"></div>
+                <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="pdf-logo">
+            </div>
+
+            <div class="pdf-number" id="pdfCardNumber">FST-6GUS-YFTV-NHL6</div>
+
+            <div class="pdf-bottom">
+                <div>
+                    <div class="pdf-holder-label">Titular</div>
+                    <div class="pdf-holder-name" id="pdfHolderName">CARLOS RUIZ</div>
+                </div>
+                <div>
+                    <div class="pdf-amount-label">Monto</div>
+                    <div class="pdf-amount-value" id="pdfAmountValue">S/ 1,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="pdf-info">
+            <strong>GIFT CARD DIGITAL · FIESTA RESTAURANT</strong>
+            VÁLIDA POR 12 MESES · CÓDIGO VERIFICABLE
+        </div>
+    </div>
+
+    <footer>
+        <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="footer-logo">
+        <div class="footer-info">© 2026 · Todos los derechos reservados</div>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = '51987654321';
+
+        // ========== AMOUNT SELECTION ==========
+        const amountBtns = document.querySelectorAll('.amount-btn');
+        const cardAmount = document.getElementById('cardAmount');
+        const summaryLabel = document.getElementById('summaryLabel');
+        const summaryAmount = document.getElementById('summaryAmount');
+        const totalAmount = document.getElementById('totalAmount');
+
+        const amountLabels = {
+            '500': 'Cena íntima',
+            '1000': 'Celebración',
+            '1500': 'Evento especial',
+            '2000': 'Gran fiesta',
+            '2500': 'Corporativo',
+            '3000': 'Exclusivo'
+        };
+
+        amountBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                amountBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const amount = this.dataset.amount;
+                const formatted = parseInt(amount).toLocaleString();
+                const label = amountLabels[amount];
+
+                cardAmount.textContent = `S/ ${formatted}`;
+                summaryLabel.textContent = label;
+                summaryAmount.textContent = `S/ ${formatted}`;
+                totalAmount.textContent = `S/ ${formatted}`;
+            });
+        });
+
+        // ========== CHARACTER COUNT ==========
+        const dedication = document.getElementById('dedication');
+        const charCount = document.getElementById('charCount');
+
+        dedication.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+            if (this.value.length > 280) {
+                this.value = this.value.substring(0, 280);
+                charCount.textContent = 280;
+            }
+        });
+        charCount.textContent = dedication.value.length;
+
+        // ========== UPDATE CARD HOLDER ==========
+        document.getElementById('recipientName').addEventListener('input', function() {
+            document.getElementById('cardHolder').textContent = this.value.toUpperCase() || 'CARLOS RUIZ';
+            document.getElementById('summaryRecipient').textContent = this.value || 'Carlos Ruiz';
+        });
+
+        document.getElementById('accountNumber').addEventListener('input', function() {
+            const acc = this.value.trim();
+            document.getElementById('summaryAccount').textContent = acc || '—';
+        });
+
+        // ========== WHATSAPP ==========
+        function sendToWhatsApp() {
+            const buyerName = document.getElementById('buyerName').value.trim();
+            const buyerPhone = document.getElementById('buyerPhone').value.trim();
+            const recipientName = document.getElementById('recipientName').value.trim();
+            const recipientEmail = document.getElementById('recipientEmail').value.trim();
+            const accountNumber = document.getElementById('accountNumber').value.trim();
+            const dedicationText = document.getElementById('dedication').value.trim();
+
+            const activeBtn = document.querySelector('.amount-btn.active');
+            const amount = activeBtn.dataset.amount;
+            const amountLabel = amountLabels[amount];
+            const formatted = parseInt(amount).toLocaleString();
+            const cardCode = document.getElementById('cardNumber').textContent;
+
+            if (!buyerName || !buyerPhone || !recipientName || !recipientEmail || !accountNumber) {
+                alert('Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
+                return;
+            }
+
+            let message = `🎁 *NUEVO PEDIDO DE GIFT CARD*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            message += `*Monto:* S/ ${formatted} (${amountLabel})\n`;
+            message += `*Código:* ${cardCode}\n\n`;
+            message += `👤 *COMPRADOR*\n`;
+            message += `• Nombre: ${buyerName}\n`;
+            message += `• WhatsApp: ${buyerPhone}\n\n`;
+            message += `🎯 *DESTINATARIO*\n`;
+            message += `• Nombre: ${recipientName}\n`;
+            message += `• Email: ${recipientEmail}\n\n`;
+            message += `🏦 *PAGO*\n`;
+            message += `• N° Cuenta: ${accountNumber}\n\n`;
+
+            if (dedicationText) {
+                message += `💌 *MENSAJE*\n"${dedicationText}"\n\n`;
+            }
+
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `Adjunto mi Gift Card en PDF. Por favor confirmar para la transferencia.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+        }
+
+        // ========== PDF DOWNLOAD ==========
+        function downloadPDF() {
+            document.getElementById('pdfCardNumber').textContent = document.getElementById('cardNumber').textContent;
+            document.getElementById('pdfHolderName').textContent = document.getElementById('cardHolder').textContent;
+            document.getElementById('pdfAmountValue').textContent = document.getElementById('cardAmount').textContent;
+
+            const recipientName = document.getElementById('recipientName').value.trim() || 'GiftCard';
+            const fileName = `GiftCard_Fiesta_${recipientName.replace(/\s+/g, '_')}.pdf`;
+
+            const opt = {
+                margin: 0,
+                filename: fileName,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    backgroundColor: '#0b0b0b',
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'landscape' 
+                }
+            };
+
+            const pdfBtn = document.querySelector('.pdf-button');
+            const originalText = pdfBtn.innerHTML;
+            pdfBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generando PDF...`;
+            pdfBtn.disabled = true;
+
+            html2pdf().set(opt).from(document.getElementById('pdf-template')).save().then(() => {
+                pdfBtn.innerHTML = originalText;
+                pdfBtn.disabled = false;
+            }).catch(() => {
+                pdfBtn.innerHTML = originalText;
+                pdfBtn.disabled = false;
+                alert('Error al generar el PDF. Intenta de nuevo.');
+            });
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+
+        // ========== 3D TILT ==========
+        const bankCard = document.getElementById('bankCard');
+        bankCard.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 30;
+            const rotateY = (centerX - x) / 30;
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        });
+
+        bankCard.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    </script>
+</body>
+</html>
 
