@@ -109,19 +109,46 @@
             overflow: hidden;
             box-shadow: 0 25px 60px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            background: linear-gradient(135deg, #1a2418 0%, #0f1a0e 40%, #0a1208 100%);
+            background: linear-gradient(135deg, #1a1208 0%, #0f0a05 50%, #0a0705 100%);
         }
 
         .bank-card:hover { transform: translateY(-6px); }
+
+        /* Pato como imagen decorativa dentro de la tarjeta */
+        .card-pato-bg {
+            position: absolute;
+            bottom: -10px;
+            right: -20px;
+            width: 85%;
+            height: auto;
+            opacity: 0.25;
+            z-index: 1;
+            pointer-events: none;
+            transform: rotate(-5deg);
+        }
+
+        /* Overlay sutil para mantener legibilidad */
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 7, 5, 0.3) 0%,
+                rgba(10, 7, 5, 0.1) 50%,
+                rgba(10, 7, 5, 0.5) 100%
+            );
+            z-index: 2;
+        }
 
         .bank-card::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
             transition: left 0.8s;
-            z-index: 2;
+            z-index: 3;
         }
 
         .bank-card:hover::before { left: 100%; }
@@ -131,7 +158,7 @@
             position: absolute;
             top: 0; left: 10%; right: 10%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
             z-index: 3;
         }
 
@@ -174,6 +201,7 @@
             z-index: 4;
             font-weight: 400;
             color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
         .card-bottom {
@@ -188,7 +216,7 @@
             font-size: 0.55rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.6);
             margin-bottom: 0.4rem;
         }
 
@@ -200,6 +228,7 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }
 
         .card-amount-value {
@@ -207,6 +236,7 @@
             font-size: 1.6rem;
             font-weight: 600;
             color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
         /* ========== AMOUNT ========== */
@@ -633,7 +663,7 @@
             overflow: hidden;
             margin: 0 auto;
             box-shadow: 0 25px 70px rgba(0,0,0,0.6);
-            background: linear-gradient(135deg, #1a2418 0%, #0f1a0e 40%, #0a1208 100%);
+            background: linear-gradient(135deg, #1a1208 0%, #0f0a05 50%, #0a0705 100%);
         }
 
         .pdf-card::before {
@@ -643,6 +673,32 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
             z-index: 3;
+        }
+
+        /* Pato en el PDF */
+        .pdf-pato-bg {
+            position: absolute;
+            bottom: -15px;
+            right: -30px;
+            width: 85%;
+            height: auto;
+            opacity: 0.25;
+            z-index: 1;
+            pointer-events: none;
+            transform: rotate(-5deg);
+        }
+
+        .pdf-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 7, 5, 0.3) 0%,
+                rgba(10, 7, 5, 0.1) 50%,
+                rgba(10, 7, 5, 0.5) 100%
+            );
+            z-index: 2;
         }
 
         .pdf-top {
@@ -682,6 +738,7 @@
             font-weight: 400;
             position: relative;
             z-index: 4;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
         .pdf-bottom {
@@ -696,7 +753,7 @@
             font-size: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.6);
             margin-bottom: 6px;
         }
 
@@ -708,6 +765,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }
 
         .pdf-amount-value {
@@ -715,6 +773,7 @@
             font-size: 34px;
             font-weight: 600;
             color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
         .pdf-info {
@@ -755,6 +814,7 @@
             .form-panel { padding: 1.5rem; }
             .bank-card { padding: 1.5rem; }
             .card-number { font-size: 1.1rem; letter-spacing: 2px; }
+            .card-pato-bg { width: 95%; right: -10px; bottom: -5px; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
 
@@ -772,7 +832,7 @@
     <div class="bg-gradient"></div>
 
     <header>
-        <img src="logo.png" alt="Fiesta Restaurant" class="logo-png">
+        <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="logo-png">
         <div class="nav-badge">GIFT CARDS</div>
     </header>
 
@@ -784,11 +844,16 @@
                 <p>Tarjeta digital con código verificable. Entrega inmediata por email. Válida 12 meses.</p>
             </div>
 
-            <!-- BANK CARD -->
+            <!-- BANK CARD con pato de fondo -->
             <div class="bank-card" id="bankCard">
+                <!-- Pato como imagen decorativa -->
+                <img src="pato.png" alt="" class="card-pato-bg">
+                <!-- Overlay sutil -->
+                <div class="card-overlay"></div>
+
                 <div class="card-top">
                     <div class="card-chip"></div>
-                    <img src="logo.png" alt="Fiesta Restaurant" class="card-brand-logo">
+                    <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="card-brand-logo">
                 </div>
 
                 <div class="card-number" id="cardNumber">FST-6GUS-YFTV-NHL6</div>
@@ -998,6 +1063,10 @@
     <!-- PDF TEMPLATE -->
     <div id="pdf-template">
         <div class="pdf-card" id="pdfCard">
+            <!-- Pato como fondo del PDF -->
+            <img src="pato.png" alt="" class="pdf-pato-bg">
+            <div class="pdf-overlay"></div>
+
             <div class="pdf-top">
                 <div class="pdf-chip"></div>
                 <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="pdf-logo">
@@ -1023,7 +1092,7 @@
     </div>
 
     <footer>
-        <img src="logo.png" alt="Fiesta Restaurant" class="footer-logo">
+        <img src="logo-fiesta.png" alt="Fiesta Restaurant" class="footer-logo">
         <div class="footer-info">© 2026 · Todos los derechos reservados</div>
     </footer>
 
@@ -1113,7 +1182,7 @@
             message += `👤 *COMPRADOR*\n`;
             message += `• Nombre: ${buyerName}\n`;
             message += `• WhatsApp: ${buyerPhone}\n\n`;
-            message += `🎯 *DESTINATARIO*\n`;
+            message += ` *DESTINATARIO*\n`;
             message += `• Nombre: ${recipientName}\n`;
             message += `• Email: ${recipientEmail}\n\n`;
             message += `🏦 *PAGO*\n`;
@@ -1194,4 +1263,3 @@
     </script>
 </body>
 </html>
-
