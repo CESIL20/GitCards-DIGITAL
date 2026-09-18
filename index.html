@@ -98,50 +98,57 @@
             font-weight: 300;
         }
 
-        /* ========== BANK CARD ========== */
-        .bank-card {
+        /* ========== FLIP CARD ========== */
+        .card-scene {
             width: 100%;
             max-width: 440px;
             aspect-ratio: 1.586/1;
-            border-radius: 20px;
-            padding: 2rem;
+            perspective: 1500px;
+            margin: 0 auto;
+        }
+
+        .card-flipper {
+            width: 100%;
+            height: 100%;
             position: relative;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-flipper.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 25px 60px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ========== FRONT FACE ========== */
+        .card-front {
             background: linear-gradient(135deg, #1a1208 0%, #0f0a05 50%, #0a0705 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .bank-card:hover { transform: translateY(-6px); }
-
-        /* Pato como imagen decorativa dentro de la tarjeta */
-        .card-pato-bg {
+        .card-front::before {
+            content: '';
             position: absolute;
-            bottom: -10px;
-            right: -20px;
-            width: 85%;
-            height: auto;
-            opacity: 0.25;
-            z-index: 1;
-            pointer-events: none;
-            transform: rotate(-5deg);
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            z-index: 3;
         }
 
-        /* Overlay sutil para mantener legibilidad */
-        .card-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(
-                180deg,
-                rgba(10, 7, 5, 0.3) 0%,
-                rgba(10, 7, 5, 0.1) 50%,
-                rgba(10, 7, 5, 0.5) 100%
-            );
-            z-index: 2;
-        }
-
-        .bank-card::before {
+        .card-front::after {
             content: '';
             position: absolute;
             top: 0; left: -100%;
@@ -151,22 +158,31 @@
             z-index: 3;
         }
 
-        .bank-card:hover::before { left: 100%; }
+        .card-flipper:hover .card-front::after { left: 100%; }
 
-        .bank-card::after {
-            content: '';
+        .card-pato-bg {
             position: absolute;
-            top: 0; left: 10%; right: 10%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            z-index: 3;
+            bottom: -10px;
+            right: -20px;
+            width: 85%;
+            opacity: 0.22;
+            z-index: 1;
+            pointer-events: none;
+            transform: rotate(-5deg);
         }
 
-        .card-top {
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(10,7,5,0.3) 0%, rgba(10,7,5,0.1) 50%, rgba(10,7,5,0.5) 100%);
+            z-index: 2;
+        }
+
+        .front-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1.5rem;
             position: relative;
             z-index: 4;
         }
@@ -192,19 +208,41 @@
 
         .card-brand-logo { height: 30px; width: auto; }
 
-        .card-number {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 1.35rem;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
+        .front-middle {
             position: relative;
             z-index: 4;
-            font-weight: 400;
-            color: rgba(255,255,255,0.95);
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .card-bottom {
+        .card-title-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            line-height: 1.2;
+        }
+
+        .card-title-value.placeholder {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .front-bottom {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -216,19 +254,25 @@
             font-size: 0.55rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
             margin-bottom: 0.4rem;
         }
 
         .card-amount-label { text-align: right; }
 
         .card-holder-name {
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.95);
+            color: #ffffff;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }
+
+        .card-holder-name.placeholder {
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+            font-size: 0.85rem;
         }
 
         .card-amount-value {
@@ -238,6 +282,155 @@
             color: #ffffff;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
+
+        /* ========== BACK FACE ========== */
+        .card-back {
+            background: linear-gradient(135deg, #1a1208 0%, #0f0a05 50%, #0a0705 100%);
+            transform: rotateY(180deg);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-magnetic-strip {
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .back-magnetic-strip::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .back-magnetic-strip::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .back-content {
+            padding: 1.5rem 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 4;
+        }
+
+        .back-code-section {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .back-code-label {
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .back-code-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .back-code-value.locked {
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 4px;
+        }
+
+        .back-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .back-cvv-section {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .back-cvv-label {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.25rem;
+        }
+
+        .back-cvv-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .back-cvv-value.locked {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .back-contact {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        .back-contact strong {
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
+        .back-terms {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.4;
+            margin-top: 0.5rem;
+        }
+
+        .back-logo {
+            height: 22px;
+            width: auto;
+            opacity: 0.6;
+            margin-top: 0.75rem;
+        }
+
+        /* ========== FLIP HINT ========== */
+        .flip-hint {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+            transition: opacity 0.3s;
+        }
+
+        .flip-hint.hidden { opacity: 0; }
 
         /* ========== AMOUNT ========== */
         .amount-section { margin-top: 2.5rem; }
@@ -518,57 +711,37 @@
             margin-top: 1.5rem;
         }
 
-        .whatsapp-button {
+        .buy-button {
             width: 100%;
             padding: 1.15rem;
-            background: #25d366;
+            background: linear-gradient(135deg, #c9a96e, #a8894e);
             border: none;
             border-radius: 12px;
-            color: #ffffff;
+            color: #0b0b0b;
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
+            letter-spacing: 0.5px;
         }
 
-        .whatsapp-button svg { width: 20px; height: 20px; fill: #ffffff; flex-shrink: 0; }
-
-        .whatsapp-button:hover {
-            background: #20bd5a;
+        .buy-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.3);
         }
 
-        .pdf-button {
-            width: 100%;
-            padding: 1.15rem;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 12px;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
+        .buy-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .pdf-button svg { width: 18px; height: 18px; stroke: #ffffff; flex-shrink: 0; }
-
-        .pdf-button:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-        }
+        .buy-button svg { width: 20px; height: 20px; stroke: #0b0b0b; fill: none; stroke-width: 2; }
 
         .cta-note {
             text-align: center;
@@ -658,7 +831,6 @@
             max-width: 760px;
             aspect-ratio: 1.586/1;
             border-radius: 28px;
-            padding: 45px;
             position: relative;
             overflow: hidden;
             margin: 0 auto;
@@ -675,14 +847,12 @@
             z-index: 3;
         }
 
-        /* Pato en el PDF */
         .pdf-pato-bg {
             position: absolute;
             bottom: -15px;
             right: -30px;
             width: 85%;
-            height: auto;
-            opacity: 0.25;
+            opacity: 0.22;
             z-index: 1;
             pointer-events: none;
             transform: rotate(-5deg);
@@ -692,22 +862,24 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(
-                180deg,
-                rgba(10, 7, 5, 0.3) 0%,
-                rgba(10, 7, 5, 0.1) 50%,
-                rgba(10, 7, 5, 0.5) 100%
-            );
+            background: linear-gradient(180deg, rgba(10,7,5,0.3) 0%, rgba(10,7,5,0.1) 50%, rgba(10,7,5,0.5) 100%);
             z-index: 2;
+        }
+
+        .pdf-content {
+            position: relative;
+            z-index: 4;
+            padding: 45px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .pdf-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 4;
         }
 
         .pdf-chip {
@@ -729,15 +901,27 @@
 
         .pdf-logo { height: 40px; width: auto; }
 
-        .pdf-number {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 26px;
+        .pdf-middle {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pdf-title-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
             letter-spacing: 4px;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 30px;
-            font-weight: 400;
-            position: relative;
-            z-index: 4;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .pdf-title-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
@@ -745,26 +929,24 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            position: relative;
-            z-index: 4;
         }
 
         .pdf-holder-label, .pdf-amount-label {
             font-size: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
             margin-bottom: 6px;
         }
 
         .pdf-amount-label { text-align: right; }
 
         .pdf-holder-name {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.95);
+            color: #ffffff;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }
 
@@ -776,22 +958,133 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
-        .pdf-info {
+        .pdf-back {
+            width: 100%;
             max-width: 760px;
-            margin: 25px auto 0;
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 12px;
-            letter-spacing: 1px;
+            aspect-ratio: 1.586/1;
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+            margin: 40px auto 0;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            background: linear-gradient(135deg, #1a1208 0%, #0f0a05 50%, #0a0705 100%);
         }
 
-        .pdf-info strong {
+        .pdf-back-magnetic {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .pdf-back-magnetic::before,
+        .pdf-back-magnetic::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .pdf-back-magnetic::before { top: 12px; }
+        .pdf-back-magnetic::after { bottom: 12px; }
+
+        .pdf-back-content {
+            padding: 30px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+            position: relative;
+            z-index: 4;
+            height: calc(100% - 60px);
+        }
+
+        .pdf-back-code-box {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+        }
+
+        .pdf-back-code-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .pdf-back-code-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .pdf-back-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .pdf-back-cvv {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px 20px;
+            text-align: right;
+        }
+
+        .pdf-back-cvv-label {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 4px;
+        }
+
+        .pdf-back-cvv-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        .pdf-back-contact {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        .pdf-back-contact strong {
             color: rgba(255,255,255,0.8);
-            display: block;
-            margin-bottom: 6px;
-            font-size: 13px;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+        }
+
+        .pdf-back-terms {
+            font-size: 10px;
+            color: rgba(255,255,255,0.35);
+            margin-top: 8px;
+        }
+
+        .pdf-back-logo {
+            height: 24px;
+            width: auto;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        .pdf-page-label {
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 15px 0 5px;
         }
 
         @media (max-width: 1024px) {
@@ -802,7 +1095,7 @@
             }
             .left-column { position: static; }
             .hero-text h1 { font-size: 2.5rem; }
-            .bank-card { max-width: 100%; }
+            .card-scene { max-width: 100%; }
         }
 
         @media (max-width: 640px) {
@@ -812,9 +1105,11 @@
             .amount-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
             .form-panel { padding: 1.5rem; }
-            .bank-card { padding: 1.5rem; }
-            .card-number { font-size: 1.1rem; letter-spacing: 2px; }
-            .card-pato-bg { width: 95%; right: -10px; bottom: -5px; }
+            .card-front, .card-back { padding: 1.5rem; }
+            .card-title-value { font-size: 1.2rem; }
+            .card-title-value.placeholder { font-size: 1rem; }
+            .card-holder-name { font-size: 0.8rem; }
+            .back-code-value { font-size: 1rem; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
 
@@ -824,8 +1119,15 @@
         }
 
         .hero-text { animation: fadeInUp 0.6s ease-out; }
-        .bank-card { animation: fadeInUp 0.6s ease-out 0.1s both; }
+        .card-scene { animation: fadeInUp 0.6s ease-out 0.1s both; }
         .form-panel { animation: fadeInUp 0.6s ease-out 0.2s both; }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body>
@@ -841,61 +1143,102 @@
             <div class="hero-text">
                 <div class="section-label">Digital Gift Card</div>
                 <h1>Regala una <em>experiencia</em> única</h1>
-                <p>Tarjeta digital con código verificable. Entrega inmediata por email. Válida 12 meses.</p>
+                <p>Completa tus datos, realiza la compra y recibe tu Gift Card con código único verificable. Válida 12 meses.</p>
             </div>
 
-            <!-- BANK CARD con pato de fondo -->
-            <div class="bank-card" id="bankCard">
-                <!-- Pato como imagen decorativa -->
-                <img src="pato.png" alt="" class="card-pato-bg">
-                <!-- Overlay sutil -->
-                <div class="card-overlay"></div>
+            <!-- FLIP CARD -->
+            <div class="card-scene">
+                <div class="card-flipper" id="cardFlipper">
+                    <!-- FRONT -->
+                    <div class="card-face card-front">
+                        <img src="pato.png" alt="" class="card-pato-bg">
+                        <div class="card-overlay"></div>
 
-                <div class="card-top">
-                    <div class="card-chip"></div>
-                    <img src="logo.png" alt="Fiesta Restaurant" class="card-brand-logo">
-                </div>
+                        <div class="front-top">
+                            <div class="card-chip"></div>
+                            <img src="logo.png" alt="Fiesta Restaurant" class="card-brand-logo">
+                        </div>
 
-                <div class="card-number" id="cardNumber">FST-6GUS-YFTV-NHL6</div>
+                        <div class="front-middle">
+                            <div class="card-title-label">Gift Card Digital</div>
+                            <div class="card-title-value placeholder" id="cardTitle">COMPRA DE GIFT CARD</div>
+                        </div>
 
-                <div class="card-bottom">
-                    <div>
-                        <div class="card-holder-label">Titular</div>
-                        <div class="card-holder-name" id="cardHolder">CARLOS RUIZ</div>
+                        <div class="front-bottom">
+                            <div>
+                                <div class="card-holder-label">Titular</div>
+                                <div class="card-holder-name placeholder" id="cardHolder">— — — — — —</div>
+                            </div>
+                            <div>
+                                <div class="card-amount-label">Monto</div>
+                                <div class="card-amount-value" id="cardAmount">S/ 1,000</div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="card-amount-label">Monto</div>
-                        <div class="card-amount-value" id="cardAmount">S/ 1,000</div>
+
+                    <!-- BACK -->
+                    <div class="card-face card-back">
+                        <div class="back-magnetic-strip"></div>
+                        <div class="back-content">
+                            <div>
+                                <div class="back-code-section">
+                                    <div class="back-code-label">Código de Serie</div>
+                                    <div class="back-code-value locked" id="backCode">XXXX-XXXX-XXXX-XXXX</div>
+                                </div>
+
+                                <div class="back-info-row">
+                                    <div class="back-contact">
+                                        <strong>Fiesta Restaurant</strong><br>
+                                        Contacto: +51 987 654 321<br>
+                                        válida 12 meses desde la compra
+                                    </div>
+                                    <div class="back-cvv-section">
+                                        <div class="back-cvv-label">CVV</div>
+                                        <div class="back-cvv-value locked" id="backCvv">----</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="back-terms">
+                                    Esta tarjeta es personal e intransferible. Válida únicamente en Fiesta Restaurant. 
+                                    No puede ser canjeada por efectivo. Sujeta a términos y condiciones.
+                                </div>
+                                <img src="logo.png" alt="Fiesta Restaurant" class="back-logo">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="flip-hint" id="flipHint">↻ La tarjeta se voltea al completar la compra</div>
 
             <!-- AMOUNT -->
             <div class="amount-section">
                 <div class="section-label">Seleccionar Monto</div>
                 <div class="amount-grid">
                     <div class="amount-btn" data-amount="500">
-                        <div class="price">S/ 1000</div>
+                        <div class="price">S/ 500</div>
                         <div class="label">Cena íntima</div>
                     </div>
                     <div class="amount-btn active" data-amount="1000">
-                        <div class="price">S/ 1,500</div>
+                        <div class="price">S/ 1,000</div>
                         <div class="label">Celebración</div>
                     </div>
                     <div class="amount-btn" data-amount="1500">
-                        <div class="price">S/ 2,500</div>
+                        <div class="price">S/ 1,500</div>
                         <div class="label">Evento especial</div>
                     </div>
                     <div class="amount-btn" data-amount="2000">
-                        <div class="price">S/ 3,500</div>
+                        <div class="price">S/ 2,000</div>
                         <div class="label">Gran fiesta</div>
                     </div>
                     <div class="amount-btn" data-amount="2500">
-                        <div class="price">S/ 5,000</div>
+                        <div class="price">S/ 2,500</div>
                         <div class="label">Corporativo</div>
                     </div>
                     <div class="amount-btn" data-amount="3000">
-                        <div class="price">S/ 10,000</div>
+                        <div class="price">S/ 3,000</div>
                         <div class="label">Exclusivo</div>
                     </div>
                 </div>
@@ -904,7 +1247,7 @@
             <div class="features">
                 <div class="feature">
                     <div class="feature-dot"></div>
-                    Código verificable
+                    Código único verificable
                 </div>
                 <div class="feature">
                     <div class="feature-dot"></div>
@@ -920,8 +1263,8 @@
         <!-- FORM -->
         <div class="form-panel">
             <div class="form-header">
-                <h2>Coordina tu compra</h2>
-                <p>Completa los datos y envíanos tu pedido por WhatsApp</p>
+                <h2>Completa tus datos</h2>
+                <p>Al finalizar se generará tu Gift Card con código único</p>
             </div>
 
             <div class="whatsapp-banner">
@@ -930,7 +1273,7 @@
                 </div>
                 <div class="whatsapp-text">
                     <strong>Compra coordinada por WhatsApp</strong><br>
-                    Nuestro encargado te atenderá personalmente y te enviará el código de tu Gift Card.
+                    Al completar la compra, el encargado verificará tu pago y activará el código.
                 </div>
             </div>
 
@@ -959,12 +1302,12 @@
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Nombre <span class="required">*</span></label>
-                            <input type="text" class="form-input" id="recipientName" value="Carlos Ruiz" placeholder="Nombre del destinatario">
+                            <label>Nombre del destinatario <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="recipientName" placeholder="Nombre que aparecerá en la tarjeta">
                         </div>
                         <div class="input-group">
-                            <label>Email <span class="required">*</span></label>
-                            <input type="email" class="form-input" id="recipientEmail" value="carlos@email.com" placeholder="email@destinatario.com">
+                            <label>Email del destinatario <span class="required">*</span></label>
+                            <input type="email" class="form-input" id="recipientEmail" placeholder="email@destinatario.com">
                         </div>
                     </div>
                 </div>
@@ -990,7 +1333,7 @@
                         <div class="step-title">Mensaje (opcional)</div>
                     </div>
                     <div class="input-group">
-                        <textarea class="form-input" id="dedication" placeholder="Escribe un mensaje especial para el destinatario...">¡Feliz cumpleaños! Que lo celebres como te mereces.</textarea>
+                        <textarea class="form-input" id="dedication" placeholder="Escribe un mensaje especial para el destinatario..."></textarea>
                         <div class="char-count"><span id="charCount">0</span> / 280</div>
                     </div>
                 </div>
@@ -1001,7 +1344,7 @@
                         <span id="summaryAmount">S/ 1,000</span>
                     </div>
                     <div class="summary-row">
-                        <span>Para · <span id="summaryRecipient">Carlos Ruiz</span></span>
+                        <span>Para · <span id="summaryRecipient">—</span></span>
                         <span>Digital</span>
                     </div>
                     <div class="summary-row">
@@ -1010,31 +1353,28 @@
                     </div>
                     <div class="summary-divider"></div>
                     <div class="summary-total">
-                        <span class="label">Total</span>
+                        <span class="label">Total a pagar</span>
                         <span class="value" id="totalAmount">S/ 1,000</span>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button type="button" class="whatsapp-button" onclick="sendToWhatsApp()">
-                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Enviar pedido por WhatsApp
-                    </button>
-                    <button type="button" class="pdf-button" onclick="downloadPDF()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
+                    <button type="button" class="buy-button" id="buyButton" onclick="completePurchase()">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
                         </svg>
-                        Descargar Gift Card en PDF
+                        Comprar y Descargar Gift Card
                     </button>
                 </div>
 
                 <p class="cta-note">
-                    <strong>¿Cómo funciona?</strong><br>
-                    1. Descarga tu Gift Card en PDF<br>
-                    2. Envía tu pedido por WhatsApp con el comprobante<br>
-                    3. Recibe la confirmación y el código activado
+                    <strong>¿Qué sucede al comprar?</strong><br>
+                    1. Se genera tu código único de Gift Card<br>
+                    2. Se descarga el PDF automáticamente<br>
+                    3. Se envía tu pedido por WhatsApp al encargado<br>
+                    4. El encargado verifica tu pago y activa el código
                 </p>
             </form>
 
@@ -1042,15 +1382,15 @@
                 <div class="steps-info-title">Proceso de compra</div>
                 <div class="step-info-item">
                     <div class="step-info-num">1</div>
-                    <div class="step-info-text">Elige el monto de tu Gift Card</div>
+                    <div class="step-info-text">Completa el formulario con tus datos</div>
                 </div>
                 <div class="step-info-item">
                     <div class="step-info-num">2</div>
-                    <div class="step-info-text">Descarga tu Gift Card en PDF</div>
+                    <div class="step-info-text">Haz click en "Comprar" para generar tu Gift Card</div>
                 </div>
                 <div class="step-info-item">
                     <div class="step-info-num">3</div>
-                    <div class="step-info-text">Envía tu pedido por WhatsApp con tu número de cuenta</div>
+                    <div class="step-info-text">Descarga el PDF y envíalo por WhatsApp con tu comprobante</div>
                 </div>
                 <div class="step-info-item">
                     <div class="step-info-num">4</div>
@@ -1062,32 +1402,61 @@
 
     <!-- PDF TEMPLATE -->
     <div id="pdf-template">
+        <div class="pdf-page-label">— ANVERSO —</div>
         <div class="pdf-card" id="pdfCard">
-            <!-- Pato como fondo del PDF -->
             <img src="pato.png" alt="" class="pdf-pato-bg">
             <div class="pdf-overlay"></div>
-
-            <div class="pdf-top">
-                <div class="pdf-chip"></div>
-                <img src="logo.png" alt="Fiesta Restaurant" class="pdf-logo">
-            </div>
-
-            <div class="pdf-number" id="pdfCardNumber">FST-6GUS-YFTV-NHL6</div>
-
-            <div class="pdf-bottom">
-                <div>
-                    <div class="pdf-holder-label">Titular</div>
-                    <div class="pdf-holder-name" id="pdfHolderName">CARLOS RUIZ</div>
+            <div class="pdf-content">
+                <div class="pdf-top">
+                    <div class="pdf-chip"></div>
+                    <img src="logo.png" alt="Fiesta Restaurant" class="pdf-logo">
                 </div>
-                <div>
-                    <div class="pdf-amount-label">Monto</div>
-                    <div class="pdf-amount-value" id="pdfAmountValue">S/ 1,000</div>
+                <div class="pdf-middle">
+                    <div class="pdf-title-label">Gift Card Digital</div>
+                    <div class="pdf-title-value" id="pdfTitle">COMPRA DE GIFT CARD</div>
+                </div>
+                <div class="pdf-bottom">
+                    <div>
+                        <div class="pdf-holder-label">Titular</div>
+                        <div class="pdf-holder-name" id="pdfHolder">— — — — — —</div>
+                    </div>
+                    <div>
+                        <div class="pdf-amount-label">Monto</div>
+                        <div class="pdf-amount-value" id="pdfAmount">S/ 1,000</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="pdf-info">
-            <strong>GIFT CARD DIGITAL · FIESTA RESTAURANT</strong>
-            VÁLIDA POR 12 MESES · CÓDIGO VERIFICABLE
+
+        <div class="pdf-page-label">— REVERSO —</div>
+        <div class="pdf-back">
+            <div class="pdf-back-magnetic"></div>
+            <div class="pdf-back-content">
+                <div>
+                    <div class="pdf-back-code-box">
+                        <div class="pdf-back-code-label">Código de Serie</div>
+                        <div class="pdf-back-code-value" id="pdfCode">XXXX-XXXX-XXXX-XXXX</div>
+                    </div>
+                    <div class="pdf-back-info-row">
+                        <div class="pdf-back-contact">
+                            <strong>Fiesta Restaurant</strong><br>
+                            Contacto: +51 987 654 321<br>
+                            Válida 12 meses desde la compra
+                        </div>
+                        <div class="pdf-back-cvv">
+                            <div class="pdf-back-cvv-label">CVV</div>
+                            <div class="pdf-back-cvv-value" id="pdfCvv">----</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="pdf-back-terms">
+                        Esta tarjeta es personal e intransferible. Válida únicamente en Fiesta Restaurant. 
+                        No puede ser canjeada por efectivo. Sujeta a términos y condiciones.
+                    </div>
+                    <img src="logo.png" alt="Fiesta Restaurant" class="pdf-back-logo">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1098,6 +1467,9 @@
 
     <script>
         const WHATSAPP_NUMBER = '51987654321';
+        let purchaseCompleted = false;
+        let generatedCode = 'XXXX-XXXX-XXXX-XXXX';
+        let generatedCvv = '----';
 
         // ========== AMOUNT SELECTION ==========
         const amountBtns = document.querySelectorAll('.amount-btn');
@@ -1107,16 +1479,17 @@
         const totalAmount = document.getElementById('totalAmount');
 
         const amountLabels = {
-            '1000': 'Cena íntima',
-            '1500': 'Celebración',
-            '2500': 'Evento especial',
-            '3500': 'Gran fiesta',
-            '5000': 'Corporativo',
-            '10000': 'Exclusivo'
+            '500': 'Cena íntima',
+            '1000': 'Celebración',
+            '1500': 'Evento especial',
+            '2000': 'Gran fiesta',
+            '2500': 'Corporativo',
+            '3000': 'Exclusivo'
         };
 
         amountBtns.forEach(btn => {
             btn.addEventListener('click', function() {
+                if (purchaseCompleted) return; // No cambiar monto después de comprar
                 amountBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
@@ -1142,12 +1515,10 @@
                 charCount.textContent = 280;
             }
         });
-        charCount.textContent = dedication.value.length;
 
-        // ========== UPDATE CARD HOLDER ==========
+        // ========== UPDATE SUMMARY ==========
         document.getElementById('recipientName').addEventListener('input', function() {
-            document.getElementById('cardHolder').textContent = this.value.toUpperCase() || 'CARLOS RUIZ';
-            document.getElementById('summaryRecipient').textContent = this.value || 'Carlos Ruiz';
+            document.getElementById('summaryRecipient').textContent = this.value || '—';
         });
 
         document.getElementById('accountNumber').addEventListener('input', function() {
@@ -1155,8 +1526,26 @@
             document.getElementById('summaryAccount').textContent = acc || '—';
         });
 
-        // ========== WHATSAPP ==========
-        function sendToWhatsApp() {
+        // ========== GENERATE UNIQUE CODE ==========
+        function generateUniqueCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const segments = [];
+            for (let s = 0; s < 4; s++) {
+                let seg = '';
+                for (let i = 0; i < 4; i++) {
+                    seg += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                segments.push(seg);
+            }
+            return segments.join('-');
+        }
+
+        function generateCVV() {
+            return Math.floor(1000 + Math.random() * 9000).toString();
+        }
+
+        // ========== COMPLETE PURCHASE ==========
+        function completePurchase() {
             const buyerName = document.getElementById('buyerName').value.trim();
             const buyerPhone = document.getElementById('buyerPhone').value.trim();
             const recipientName = document.getElementById('recipientName').value.trim();
@@ -1168,48 +1557,67 @@
             const amount = activeBtn.dataset.amount;
             const amountLabel = amountLabels[amount];
             const formatted = parseInt(amount).toLocaleString();
-            const cardCode = document.getElementById('cardNumber').textContent;
 
+            // Validación
             if (!buyerName || !buyerPhone || !recipientName || !recipientEmail || !accountNumber) {
-                alert('Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
+                alert('⚠️ Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
                 return;
             }
 
-            let message = `🎁 *NUEVO PEDIDO DE GIFT CARD*\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            message += `*Monto:* S/ ${formatted} (${amountLabel})\n`;
-            message += `*Código:* ${cardCode}\n\n`;
-            message += `👤 *COMPRADOR*\n`;
-            message += `• Nombre: ${buyerName}\n`;
-            message += `• WhatsApp: ${buyerPhone}\n\n`;
-            message += ` *DESTINATARIO*\n`;
-            message += `• Nombre: ${recipientName}\n`;
-            message += `• Email: ${recipientEmail}\n\n`;
-            message += `🏦 *PAGO*\n`;
-            message += `• N° Cuenta: ${accountNumber}\n\n`;
+            // Deshabilitar botón
+            const buyButton = document.getElementById('buyButton');
+            buyButton.disabled = true;
+            buyButton.innerHTML = `<svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generando Gift Card...`;
 
-            if (dedicationText) {
-                message += `💌 *MENSAJE*\n"${dedicationText}"\n\n`;
-            }
+            // Simular proceso de generación
+            setTimeout(() => {
+                // Generar código único
+                generatedCode = generateUniqueCode();
+                generatedCvv = generateCVV();
 
-            message += `━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `Adjunto mi Gift Card en PDF. Por favor confirmar para la transferencia.`;
+                // Actualizar tarjeta (frente)
+                document.getElementById('cardTitle').textContent = recipientName.toUpperCase();
+                document.getElementById('cardTitle').classList.remove('placeholder');
+                document.getElementById('cardHolder').textContent = recipientName.toUpperCase();
+                document.getElementById('cardHolder').classList.remove('placeholder');
 
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+                // Actualizar tarjeta (reverso)
+                document.getElementById('backCode').textContent = generatedCode;
+                document.getElementById('backCode').classList.remove('locked');
+                document.getElementById('backCvv').textContent = generatedCvv;
+                document.getElementById('backCvv').classList.remove('locked');
+
+                // Voltear tarjeta
+                document.getElementById('cardFlipper').classList.add('flipped');
+                document.getElementById('flipHint').classList.add('hidden');
+
+                // Actualizar PDF
+                document.getElementById('pdfTitle').textContent = recipientName.toUpperCase();
+                document.getElementById('pdfHolder').textContent = recipientName.toUpperCase();
+                document.getElementById('pdfCode').textContent = generatedCode;
+                document.getElementById('pdfCvv').textContent = generatedCvv;
+
+                purchaseCompleted = true;
+
+                // Descargar PDF
+                downloadPDF(recipientName, formatted);
+
+                // Enviar WhatsApp
+                setTimeout(() => {
+                    sendToWhatsApp(buyerName, buyerPhone, recipientName, recipientEmail, accountNumber, dedicationText, amount, amountLabel, formatted, generatedCode);
+                }, 1500);
+
+                // Restaurar botón
+                buyButton.innerHTML = '✓ Gift Card Generada';
+            }, 1200);
         }
 
         // ========== PDF DOWNLOAD ==========
-        function downloadPDF() {
-            document.getElementById('pdfCardNumber').textContent = document.getElementById('cardNumber').textContent;
-            document.getElementById('pdfHolderName').textContent = document.getElementById('cardHolder').textContent;
-            document.getElementById('pdfAmountValue').textContent = document.getElementById('cardAmount').textContent;
-
-            const recipientName = document.getElementById('recipientName').value.trim() || 'GiftCard';
-            const fileName = `GiftCard_Fiesta_${recipientName.replace(/\s+/g, '_')}.pdf`;
+        function downloadPDF(recipientName, formatted) {
+            const fileName = `GiftCard_Fiesta_${(recipientName || 'Cliente').replace(/\s+/g, '_')}_${generatedCode}.pdf`;
 
             const opt = {
-                margin: 0,
+                margin: [10, 10, 10, 10],
                 filename: fileName,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
@@ -1225,41 +1633,34 @@
                 }
             };
 
-            const pdfBtn = document.querySelector('.pdf-button');
-            const originalText = pdfBtn.innerHTML;
-            pdfBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generando PDF...`;
-            pdfBtn.disabled = true;
-
-            html2pdf().set(opt).from(document.getElementById('pdf-template')).save().then(() => {
-                pdfBtn.innerHTML = originalText;
-                pdfBtn.disabled = false;
-            }).catch(() => {
-                pdfBtn.innerHTML = originalText;
-                pdfBtn.disabled = false;
-                alert('Error al generar el PDF. Intenta de nuevo.');
-            });
+            html2pdf().set(opt).from(document.getElementById('pdf-template')).save();
         }
 
-        const style = document.createElement('style');
-        style.textContent = `@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
-        document.head.appendChild(style);
+        // ========== WHATSAPP ==========
+        function sendToWhatsApp(buyerName, buyerPhone, recipientName, recipientEmail, accountNumber, dedicationText, amount, amountLabel, formatted, code) {
+            let message = `🎁 *NUEVA COMPRA DE GIFT CARD*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            message += `*Monto:* S/ ${formatted} (${amountLabel})\n`;
+            message += `*Código generado:* ${code}\n\n`;
+            message += `👤 *COMPRADOR*\n`;
+            message += `• Nombre: ${buyerName}\n`;
+            message += `• WhatsApp: ${buyerPhone}\n\n`;
+            message += `🎯 *DESTINATARIO*\n`;
+            message += `• Nombre: ${recipientName}\n`;
+            message += `• Email: ${recipientEmail}\n\n`;
+            message += `🏦 *PAGO*\n`;
+            message += `• N° Cuenta: ${accountNumber}\n\n`;
 
-        // ========== 3D TILT ==========
-        const bankCard = document.getElementById('bankCard');
-        bankCard.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 30;
-            const rotateY = (centerX - x) / 30;
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-        });
+            if (dedicationText) {
+                message += `💌 *MENSAJE*\n"${dedicationText}"\n\n`;
+            }
 
-        bankCard.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `Adjunto mi Gift Card en PDF. Por favor verificar pago y activar código.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+        }
     </script>
 </body>
 </html>
