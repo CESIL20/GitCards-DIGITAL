@@ -298,9 +298,9 @@
         }
         .back-magnetic-strip {
             width: 100%;
-            height: 48px;
+            height: 40px;
             background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #2a2a2a 100%);
-            margin-top: 28px;
+            margin-top: 20px;
             position: relative;
         }
         .back-magnetic-strip::before,
@@ -311,10 +311,10 @@
             height: 1px;
             background: rgba(255,255,255,0.15);
         }
-        .back-magnetic-strip::before { top: 10px; }
-        .back-magnetic-strip::after { bottom: 10px; }
+        .back-magnetic-strip::before { top: 8px; }
+        .back-magnetic-strip::after { bottom: 8px; }
         .back-content {
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -325,107 +325,115 @@
         .back-code-section {
             background: rgba(201,169,110,0.08);
             border: 1px solid rgba(201,169,110,0.25);
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1rem;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.75rem;
         }
         .back-code-label {
-            font-size: 0.6rem;
-            letter-spacing: 3px;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.9);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.4rem;
             font-weight: 500;
         }
         .back-code-value {
             font-family: 'Space Grotesk', monospace;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
             color: #ffffff;
             font-weight: 600;
             word-break: break-all;
         }
         .back-code-value.locked {
             color: rgba(255,255,255,0.3);
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             font-weight: 400;
         }
         .back-barcode-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
             background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            overflow: hidden;
         }
         .back-barcode-section svg {
             flex-shrink: 0;
+            max-width: 100px;
+            height: auto;
         }
         .back-barcode-info {
             flex: 1;
+            min-width: 0;
         }
         .back-barcode-label {
-            font-size: 0.55rem;
-            letter-spacing: 2px;
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.8);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .back-barcode-number {
             font-family: 'Space Grotesk', monospace;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: rgba(255,255,255,0.8);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .back-qr-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
             background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
         }
         .back-qr-section canvas,
         .back-qr-section img {
-            border-radius: 6px;
+            border-radius: 4px;
+            flex-shrink: 0;
         }
         .back-qr-info {
             flex: 1;
         }
         .back-qr-label {
-            font-size: 0.55rem;
-            letter-spacing: 2px;
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.8);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .back-qr-text {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: rgba(255,255,255,0.7);
-            line-height: 1.4;
+            line-height: 1.3;
         }
         .back-info-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 0.75rem;
-            gap: 1rem;
+            margin-bottom: 0.5rem;
+            gap: 0.5rem;
         }
         .back-contact {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: rgba(255,255,255,0.8);
-            line-height: 1.6;
+            line-height: 1.4;
         }
         .back-contact strong { color: #ffffff; font-weight: 600; }
         .back-terms {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: rgba(255,255,255,0.4);
-            line-height: 1.4;
-            margin-top: 0.5rem;
+            line-height: 1.3;
+            margin-top: 0.4rem;
         }
-        .back-logo { height: 22px; width: auto; opacity: 0.8; margin-top: 0.5rem; }
+        .back-logo { height: 18px; width: auto; opacity: 0.8; margin-top: 0.4rem; }
         .flip-hint {
             text-align: center;
             margin-top: 1rem;
@@ -1050,13 +1058,15 @@
             .amount-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
             .form-panel { padding: 1.5rem; }
-            .card-front, .card-back { padding: 1.5rem; }
-            .card-title-value { font-size: 1.2rem; }
-            .card-title-value.placeholder { font-size: 1rem; }
-            .card-holder-name { font-size: 0.8rem; }
-            .back-code-value { font-size: 1.1rem; }
-            .back-content { padding: 1rem 1.25rem; }
-            .back-code-section { padding: 1rem 1.25rem; }
+            .card-front, .card-back { padding: 1.25rem; }
+            .card-title-value { font-size: 1.1rem; }
+            .card-title-value.placeholder { font-size: 0.95rem; }
+            .card-holder-name { font-size: 0.75rem; }
+            .back-code-value { font-size: 0.95rem; }
+            .back-content { padding: 0.85rem 1rem; }
+            .back-code-section { padding: 0.75rem 0.9rem; }
+            .back-barcode-section { padding: 0.5rem 0.7rem; }
+            .back-qr-section { padding: 0.5rem 0.7rem; }
             .card-pato-bg { width: 100%; right: -5%; bottom: 0; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
@@ -1129,7 +1139,7 @@
                                 </div>
 
                                 <div class="back-barcode-section">
-                                    <svg id="backBarcode" width="120" height="40"></svg>
+                                    <svg id="backBarcode" width="80" height="30"></svg>
                                     <div class="back-barcode-info">
                                         <div class="back-barcode-label">Código de Barras</div>
                                         <div class="back-barcode-number" id="backBarcodeNumber">— — — — — —</div>
@@ -1137,26 +1147,24 @@
                                 </div>
 
                                 <div class="back-qr-section">
-                                    <div id="backQR" style="width: 60px; height: 60px;"></div>
+                                    <div id="backQR" style="width: 50px; height: 50px;"></div>
                                     <div class="back-qr-info">
                                         <div class="back-qr-label">Código QR</div>
-                                        <div class="back-qr-text">Escanea para verificar tu Gift Card</div>
+                                        <div class="back-qr-text">Escanea para verificar</div>
                                     </div>
                                 </div>
 
                                 <div class="back-info-row">
                                     <div class="back-contact">
                                         <strong>Fiesta Restaurant</strong><br>
-                                        Contacto: +51 987 654 321<br>
-                                        Válida 12 meses desde la compra
+                                        Contacto: +51 987 654 321
                                     </div>
                                 </div>
                             </div>
 
                             <div>
                                 <div class="back-terms">
-                                    Esta tarjeta es personal e intransferible. Válida únicamente en Fiesta Restaurant. 
-                                    No puede ser canjeada por efectivo. Sujeta a términos y condiciones.
+                                    Válida 12 meses. Personal e intransferible.
                                 </div>
                                 <img src="logo.png" alt="Fiesta Restaurant" class="back-logo">
                             </div>
@@ -1373,11 +1381,11 @@
                         <div class="pdf-back-code-value" id="pdfCode">XXXX-XXXX-XXXX-XXXX</div>
                     </div>
                     <div class="pdf-back-barcodes">
-                        <svg id="pdfBarcode" width="150" height="50"></svg>
-                        <div id="pdfQR" style="width: 70px; height: 70px;"></div>
+                        <svg id="pdfBarcode" width="120" height="45"></svg>
+                        <div id="pdfQR" style="width: 60px; height: 60px;"></div>
                         <div class="pdf-back-barcodes-info">
                             <div class="pdf-back-barcodes-label">Verificación</div>
-                            <div class="pdf-back-barcodes-text">Escanea el QR o usa el código de barras para verificar tu Gift Card en cualquier sede de Fiesta Restaurant.</div>
+                            <div class="pdf-back-barcodes-text">Escanea el QR o usa el código de barras para verificar tu Gift Card.</div>
                         </div>
                     </div>
                     <div class="pdf-back-info-row">
@@ -1405,10 +1413,6 @@
     </footer>
 
     <script>
-        // ========== EMAILJS CONFIG ==========
-        // Regístrate gratis en https://www.emailjs.com/
-        // Crea un servicio (Gmail) y un template de email
-        // Reemplaza estos valores con los tuyos:
         const EMAILJS_PUBLIC_KEY = 'TU_PUBLIC_KEY';
         const EMAILJS_SERVICE_ID = 'TU_SERVICE_ID';
         const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
@@ -1421,7 +1425,6 @@
         let purchaseCompleted = false;
         let generatedCode = 'XXXX-XXXX-XXXX-XXXX';
         let generatedCvv = '----';
-        let qrCodeInstance = null;
 
         const amountBtns = document.querySelectorAll('.amount-btn');
         const cardAmount = document.getElementById('cardAmount');
@@ -1455,7 +1458,6 @@
             });
         });
 
-        // ========== ACTUALIZACIÓN EN TIEMPO REAL ==========
         const recipientNameInput = document.getElementById('recipientName');
         const recipientEmailInput = document.getElementById('recipientEmail');
         const buyerNameInput = document.getElementById('buyerName');
@@ -1463,9 +1465,7 @@
         function updateCardInRealTime() {
             const name = recipientNameInput.value.trim();
             const email = recipientEmailInput.value.trim();
-            const buyer = buyerNameInput.value.trim();
 
-            // Actualizar frente de tarjeta
             if (name) {
                 document.getElementById('cardTitle').textContent = name.toUpperCase();
                 document.getElementById('cardTitle').classList.remove('placeholder');
@@ -1478,7 +1478,6 @@
                 document.getElementById('cardHolder').classList.add('placeholder');
             }
 
-            // Actualizar resumen
             document.getElementById('summaryRecipient').textContent = name || '—';
             document.getElementById('summaryEmail').textContent = email || '—';
         }
@@ -1520,33 +1519,30 @@
             return Math.floor(1000 + Math.random() * 9000).toString();
         }
 
-        function generateBarcode(code) {
-            // Generar código de barras en el reverso de la tarjeta
+        function generateBarcode(code, elementId, width, height) {
             try {
-                JsBarcode("#backBarcode", code.replace(/-/g, ''), {
+                JsBarcode(`#${elementId}`, code.replace(/-/g, ''), {
                     format: "CODE128",
-                    width: 1.5,
-                    height: 40,
+                    width: 1,
+                    height: height,
                     displayValue: false,
                     background: "transparent",
                     lineColor: "#ffffff",
                     margin: 0
                 });
-                document.getElementById('backBarcodeNumber').textContent = code;
             } catch (e) {
                 console.error('Error generando código de barras:', e);
             }
         }
 
-        function generateQR(code) {
-            // Generar QR en el reverso de la tarjeta
-            const qrContainer = document.getElementById('backQR');
+        function generateQR(code, elementId, size) {
+            const qrContainer = document.getElementById(elementId);
             qrContainer.innerHTML = '';
             try {
-                qrCodeInstance = new QRCode(qrContainer, {
+                new QRCode(qrContainer, {
                     text: `https://fiesta-restaurant.com/verify/${code}`,
-                    width: 60,
-                    height: 60,
+                    width: size,
+                    height: size,
                     colorDark: "#ffffff",
                     colorLight: "transparent",
                     correctLevel: QRCode.CorrectLevel.M
@@ -1557,7 +1553,6 @@
         }
 
         async function sendEmail(recipientName, recipientEmail, code, amount, buyerName, dedicationText) {
-            // Enviar email usando EmailJS
             const templateParams = {
                 to_name: recipientName,
                 to_email: recipientEmail,
@@ -1575,7 +1570,6 @@
                     return true;
                 } else {
                     console.log('EmailJS no configurado. Email simulado para:', recipientEmail);
-                    console.log('Template params:', templateParams);
                     return true;
                 }
             } catch (error) {
@@ -1598,7 +1592,7 @@
             const formatted = parseInt(amount).toLocaleString();
 
             if (!buyerName || !buyerPhone || !recipientName || !recipientEmail || !accountNumber) {
-                alert('️ Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
+                alert('⚠️ Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
                 return;
             }
 
@@ -1610,76 +1604,52 @@
                 generatedCode = generateUniqueCode();
                 generatedCvv = generateCVV();
 
-                // Actualizar tarjeta en tiempo real
                 document.getElementById('cardTitle').textContent = recipientName.toUpperCase();
                 document.getElementById('cardTitle').classList.remove('placeholder');
                 document.getElementById('cardHolder').textContent = recipientName.toUpperCase();
                 document.getElementById('cardHolder').classList.remove('placeholder');
 
-                // Actualizar reverso con código, barras y QR
                 document.getElementById('backCode').textContent = generatedCode;
                 document.getElementById('backCode').classList.remove('locked');
-                generateBarcode(generatedCode);
-                generateQR(generatedCode);
+                
+                // Generar código de barras y QR con tamaños responsive
+                const isMobile = window.innerWidth <= 640;
+                const barcodeWidth = isMobile ? 80 : 120;
+                const barcodeHeight = isMobile ? 30 : 40;
+                const qrSize = isMobile ? 50 : 70;
+                
+                generateBarcode(generatedCode, 'backBarcode', barcodeWidth, barcodeHeight);
+                generateQR(generatedCode, 'backQR', qrSize);
+                document.getElementById('backBarcodeNumber').textContent = generatedCode;
 
-                // Voltear tarjeta para mostrar el reverso
                 document.getElementById('cardFlipper').classList.add('flipped');
                 document.getElementById('flipHint').classList.add('hidden');
 
-                // Actualizar PDF
                 document.getElementById('pdfTitle').textContent = recipientName.toUpperCase();
                 document.getElementById('pdfHolder').textContent = recipientName.toUpperCase();
                 document.getElementById('pdfCode').textContent = generatedCode;
 
-                // Generar código de barras y QR en el PDF
                 setTimeout(() => {
-                    try {
-                        JsBarcode("#pdfBarcode", generatedCode.replace(/-/g, ''), {
-                            format: "CODE128",
-                            width: 2,
-                            height: 50,
-                            displayValue: false,
-                            background: "transparent",
-                            lineColor: "#ffffff",
-                            margin: 0
-                        });
-                    } catch (e) { console.error(e); }
-
-                    const pdfQRContainer = document.getElementById('pdfQR');
-                    pdfQRContainer.innerHTML = '';
-                    try {
-                        new QRCode(pdfQRContainer, {
-                            text: `https://fiesta-restaurant.com/verify/${generatedCode}`,
-                            width: 70,
-                            height: 70,
-                            colorDark: "#ffffff",
-                            colorLight: "transparent",
-                            correctLevel: QRCode.CorrectLevel.M
-                        });
-                    } catch (e) { console.error(e); }
+                    generateBarcode(generatedCode, 'pdfBarcode', 120, 45);
+                    generateQR(generatedCode, 'pdfQR', 60);
                 }, 100);
 
                 purchaseCompleted = true;
 
-                // Esperar a que se renderice
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                // Descargar PDF
                 await downloadPDF(recipientName, formatted);
 
-                // Enviar email al destinatario
                 const emailSent = await sendEmail(recipientName, recipientEmail, generatedCode, amount, buyerName, dedicationText);
 
-                // Enviar WhatsApp al encargado
                 setTimeout(() => {
                     sendToWhatsApp(buyerName, buyerPhone, recipientName, recipientEmail, accountNumber, dedicationText, amount, amountLabel, formatted, generatedCode);
                 }, 1500);
 
-                // Mostrar confirmación
                 if (emailSent) {
-                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n📧 Gift Card enviada a: ${recipientEmail}\n Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
+                    alert(`✅ ¡Compra exitosa!\n\n PDF descargado\n📧 Gift Card enviada a: ${recipientEmail}\n🔑 Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
                 } else {
-                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n⚠️ El email no pudo enviarse (configura EmailJS)\n🔑 Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
+                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n️ El email no pudo enviarse (configura EmailJS)\n🔑 Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
                 }
 
                 buyButton.innerHTML = '✓ Compra Completada';
