@@ -276,10 +276,11 @@
             text-shadow: 0 2px 12px rgba(0,0,0,0.8);
             letter-spacing: -0.5px;
         }
+
+        /* ========== REVERSO REDISEÑADO ========== */
         .card-back {
             background: linear-gradient(145deg, #2a1f14 0%, #1f1610 40%, #141008 100%);
             transform: rotateY(180deg);
-            padding: 0;
             display: flex;
             flex-direction: column;
         }
@@ -298,10 +299,11 @@
         }
         .back-magnetic-strip {
             width: 100%;
-            height: 40px;
+            height: 36px;
             background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #2a2a2a 100%);
-            margin-top: 20px;
+            margin-top: 16px;
             position: relative;
+            flex-shrink: 0;
         }
         .back-magnetic-strip::before,
         .back-magnetic-strip::after {
@@ -311,35 +313,37 @@
             height: 1px;
             background: rgba(255,255,255,0.15);
         }
-        .back-magnetic-strip::before { top: 8px; }
-        .back-magnetic-strip::after { bottom: 8px; }
+        .back-magnetic-strip::before { top: 7px; }
+        .back-magnetic-strip::after { bottom: 7px; }
         .back-content {
-            padding: 1rem 1.5rem;
+            padding: 12px 16px 10px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
             z-index: 4;
+            overflow: hidden;
         }
-        .back-code-section {
+        /* Caja de código de serie */
+        .back-code-box {
             background: rgba(201,169,110,0.08);
-            border: 1px solid rgba(201,169,110,0.25);
-            border-radius: 10px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.75rem;
+            border: 1px solid rgba(201,169,110,0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            flex-shrink: 0;
         }
         .back-code-label {
-            font-size: 0.55rem;
+            font-size: 0.45rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(201,169,110,0.9);
-            margin-bottom: 0.4rem;
+            color: rgba(201,169,110,0.8);
+            margin-bottom: 3px;
             font-weight: 500;
         }
         .back-code-value {
             font-family: 'Space Grotesk', monospace;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             letter-spacing: 1.5px;
             color: #ffffff;
             font-weight: 600;
@@ -349,91 +353,97 @@
             color: rgba(255,255,255,0.3);
             letter-spacing: 3px;
             font-weight: 400;
+            font-size: 0.85rem;
         }
-        .back-barcode-section {
+        /* Sección de código de barras */
+        .back-barcode-box {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            padding: 0.6rem 0.8rem;
+            gap: 10px;
+            flex-shrink: 0;
             overflow: hidden;
         }
-        .back-barcode-section svg {
+        .back-barcode-box svg {
             flex-shrink: 0;
-            max-width: 100px;
-            height: auto;
+            display: block;
+        }
+        .back-barcode-box svg rect,
+        .back-barcode-box svg line {
+            stroke: #ffffff;
         }
         .back-barcode-info {
             flex: 1;
             min-width: 0;
         }
-        .back-barcode-label {
-            font-size: 0.5rem;
+        .back-barcode-info-label {
+            font-size: 0.45rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.8);
-            margin-bottom: 0.2rem;
+            margin-bottom: 2px;
         }
-        .back-barcode-number {
+        .back-barcode-info-number {
             font-family: 'Space Grotesk', monospace;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.8);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.85);
             letter-spacing: 0.5px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .back-qr-section {
+        /* Sección QR */
+        .back-qr-box {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            padding: 0.6rem 0.8rem;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-shrink: 0;
         }
-        .back-qr-section canvas,
-        .back-qr-section img {
+        .back-qr-box canvas,
+        .back-qr-box img {
             border-radius: 4px;
             flex-shrink: 0;
+            background: rgba(255,255,255,0.05);
+            padding: 3px;
         }
         .back-qr-info {
             flex: 1;
+            min-width: 0;
         }
-        .back-qr-label {
-            font-size: 0.5rem;
+        .back-qr-info-label {
+            font-size: 0.45rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.8);
-            margin-bottom: 0.2rem;
+            margin-bottom: 2px;
         }
-        .back-qr-text {
-            font-size: 0.65rem;
+        .back-qr-info-text {
+            font-size: 0.6rem;
             color: rgba(255,255,255,0.7);
             line-height: 1.3;
         }
-        .back-info-row {
+        /* Info inferior */
+        .back-bottom {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 0.5rem;
-            gap: 0.5rem;
+            margin-top: auto;
+            gap: 8px;
+            flex-shrink: 0;
         }
         .back-contact {
-            font-size: 0.65rem;
-            color: rgba(255,255,255,0.8);
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.7);
             line-height: 1.4;
         }
         .back-contact strong { color: #ffffff; font-weight: 600; }
-        .back-terms {
-            font-size: 0.55rem;
-            color: rgba(255,255,255,0.4);
-            line-height: 1.3;
-            margin-top: 0.4rem;
-        }
-        .back-logo { height: 18px; width: auto; opacity: 0.8; margin-top: 0.4rem; }
+        .back-logo { height: 16px; width: auto; opacity: 0.7; flex-shrink: 0; }
+
         .flip-hint {
             text-align: center;
             margin-top: 1rem;
@@ -456,11 +466,18 @@
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
+            font: inherit;
+            color: inherit;
+            appearance: none;
         }
         .amount-btn:hover {
             background: rgba(255,255,255,0.05);
             border-color: rgba(201,169,110,0.3);
             transform: translateY(-2px);
+        }
+        .amount-btn:focus-visible {
+            outline: 2px solid rgba(201,169,110,0.6);
+            outline-offset: 2px;
         }
         .amount-btn.active {
             background: rgba(201,169,110,0.08);
@@ -544,6 +561,27 @@
             font-weight: 300;
         }
         .whatsapp-text strong { color: #ffffff; font-weight: 500; }
+        .payment-info-box {
+            background: rgba(201,169,110,0.05);
+            border: 1px solid rgba(201,169,110,0.2);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .payment-info-label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(201,169,110,0.8);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .payment-info-value {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+            font-weight: 400;
+        }
         .form-section { margin-bottom: 1.75rem; }
         .form-section-header {
             display: flex;
@@ -934,9 +972,9 @@
         }
         .pdf-back-magnetic {
             width: 100%;
-            height: 55px;
+            height: 50px;
             background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #2a2a2a 100%);
-            margin-top: 35px;
+            margin-top: 30px;
             position: relative;
         }
         .pdf-back-magnetic::before,
@@ -947,91 +985,94 @@
             height: 1px;
             background: rgba(255,255,255,0.15);
         }
-        .pdf-back-magnetic::before { top: 12px; }
-        .pdf-back-magnetic::after { bottom: 12px; }
+        .pdf-back-magnetic::before { top: 10px; }
+        .pdf-back-magnetic::after { bottom: 10px; }
         .pdf-back-content {
-            padding: 25px 40px;
+            padding: 20px 35px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             flex: 1;
             position: relative;
             z-index: 4;
-            height: calc(100% - 55px);
+            height: calc(100% - 50px);
         }
         .pdf-back-code-box {
             background: rgba(201,169,110,0.08);
             border: 1px solid rgba(201,169,110,0.25);
-            border-radius: 12px;
-            padding: 16px 22px;
-            margin-bottom: 15px;
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
         }
         .pdf-back-code-label {
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.9);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 500;
         }
         .pdf-back-code-value {
             font-family: 'Space Grotesk', monospace;
-            font-size: 22px;
+            font-size: 20px;
             letter-spacing: 3px;
             color: #ffffff;
             font-weight: 600;
         }
-        .pdf-back-barcodes {
+        .pdf-back-scan-section {
             display: flex;
+            align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
             padding: 12px 15px;
-            align-items: center;
+            margin-bottom: 12px;
         }
-        .pdf-back-barcodes svg {
+        .pdf-back-scan-section svg {
             flex-shrink: 0;
         }
-        .pdf-back-barcodes canvas,
-        .pdf-back-barcodes img {
+        .pdf-back-scan-section canvas,
+        .pdf-back-scan-section img {
             border-radius: 6px;
             flex-shrink: 0;
+            background: rgba(255,255,255,0.05);
+            padding: 4px;
         }
-        .pdf-back-barcodes-info {
+        .pdf-back-scan-info {
             flex: 1;
         }
-        .pdf-back-barcodes-label {
+        .pdf-back-scan-label {
             font-size: 9px;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: rgba(201,169,110,0.9);
             margin-bottom: 4px;
+            font-weight: 500;
         }
-        .pdf-back-barcodes-text {
+        .pdf-back-scan-text {
             font-size: 11px;
             color: rgba(255,255,255,0.8);
             line-height: 1.4;
         }
-        .pdf-back-info-row {
+        .pdf-back-bottom {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            gap: 20px;
+            gap: 15px;
         }
         .pdf-back-contact {
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(255,255,255,0.8);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .pdf-back-contact strong { color: #ffffff; font-weight: 600; }
         .pdf-back-terms {
-            font-size: 10px;
+            font-size: 9px;
             color: rgba(255,255,255,0.5);
-            margin-top: 8px;
-            line-height: 1.5;
+            margin-top: 6px;
+            line-height: 1.4;
         }
-        .pdf-back-logo { height: 24px; width: auto; opacity: 0.8; margin-top: 10px; }
+        .pdf-back-logo { height: 22px; width: auto; opacity: 0.8; flex-shrink: 0; }
         .pdf-page-label {
             text-align: center;
             color: rgba(201,169,110,0.5);
@@ -1058,15 +1099,10 @@
             .amount-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
             .form-panel { padding: 1.5rem; }
-            .card-front, .card-back { padding: 1.25rem; }
+            .card-front { padding: 1.25rem; }
             .card-title-value { font-size: 1.1rem; }
             .card-title-value.placeholder { font-size: 0.95rem; }
             .card-holder-name { font-size: 0.75rem; }
-            .back-code-value { font-size: 0.95rem; }
-            .back-content { padding: 0.85rem 1rem; }
-            .back-code-section { padding: 0.75rem 0.9rem; }
-            .back-barcode-section { padding: 0.5rem 0.7rem; }
-            .back-qr-section { padding: 0.5rem 0.7rem; }
             .card-pato-bg { width: 100%; right: -5%; bottom: 0; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
@@ -1132,41 +1168,37 @@
                     <div class="card-face card-back">
                         <div class="back-magnetic-strip"></div>
                         <div class="back-content">
-                            <div>
-                                <div class="back-code-section">
-                                    <div class="back-code-label">Código de Serie</div>
-                                    <div class="back-code-value locked" id="backCode">XXXX-XXXX-XXXX-XXXX</div>
-                                </div>
+                            <!-- Código de serie -->
+                            <div class="back-code-box">
+                                <div class="back-code-label">Código de Serie</div>
+                                <div class="back-code-value locked" id="backCode">XXXX-XXXX-XXXX-XXXX</div>
+                            </div>
 
-                                <div class="back-barcode-section">
-                                    <svg id="backBarcode" width="80" height="30"></svg>
-                                    <div class="back-barcode-info">
-                                        <div class="back-barcode-label">Código de Barras</div>
-                                        <div class="back-barcode-number" id="backBarcodeNumber">— — — — — —</div>
-                                    </div>
-                                </div>
-
-                                <div class="back-qr-section">
-                                    <div id="backQR" style="width: 50px; height: 50px;"></div>
-                                    <div class="back-qr-info">
-                                        <div class="back-qr-label">Código QR</div>
-                                        <div class="back-qr-text">Escanea para verificar</div>
-                                    </div>
-                                </div>
-
-                                <div class="back-info-row">
-                                    <div class="back-contact">
-                                        <strong>Fiesta Restaurant</strong><br>
-                                        Contacto: +51 987 654 321
-                                    </div>
+                            <!-- Código de barras -->
+                            <div class="back-barcode-box">
+                                <svg id="backBarcode"></svg>
+                                <div class="back-barcode-info">
+                                    <div class="back-barcode-info-label">Código de Barras</div>
+                                    <div class="back-barcode-info-number" id="backBarcodeNumber">— — — — — —</div>
                                 </div>
                             </div>
 
-                            <div>
-                                <div class="back-terms">
-                                    Válida 12 meses. Personal e intransferible.
+                            <!-- QR -->
+                            <div class="back-qr-box">
+                                <div id="backQR"></div>
+                                <div class="back-qr-info">
+                                    <div class="back-qr-info-label">Código QR</div>
+                                    <div class="back-qr-info-text">Escanea para verificar tu Gift Card</div>
                                 </div>
-                                <img src="logo.png" alt="Fiesta Restaurant" class="back-logo">
+                            </div>
+
+                            <!-- Info inferior -->
+                            <div class="back-bottom">
+                                <div class="back-contact">
+                                    <strong>Fiesta Restaurant</strong><br>
+                                    +51 987 654 321 · 12 meses
+                                </div>
+                                <img src="logo.png" alt="Fiesta" class="back-logo">
                             </div>
                         </div>
                     </div>
@@ -1178,30 +1210,30 @@
             <div class="amount-section">
                 <div class="section-label">Seleccionar Monto</div>
                 <div class="amount-grid">
-                    <div class="amount-btn" data-amount="500">
+                    <button type="button" class="amount-btn" data-amount="500" aria-pressed="false">
                         <div class="price">S/ 500</div>
                         <div class="label">Cena íntima</div>
-                    </div>
-                    <div class="amount-btn active" data-amount="1000">
+                    </button>
+                    <button type="button" class="amount-btn active" data-amount="1000" aria-pressed="true">
                         <div class="price">S/ 1,000</div>
                         <div class="label">Celebración</div>
-                    </div>
-                    <div class="amount-btn" data-amount="1500">
+                    </button>
+                    <button type="button" class="amount-btn" data-amount="1500" aria-pressed="false">
                         <div class="price">S/ 1,500</div>
                         <div class="label">Evento especial</div>
-                    </div>
-                    <div class="amount-btn" data-amount="2000">
+                    </button>
+                    <button type="button" class="amount-btn" data-amount="2000" aria-pressed="false">
                         <div class="price">S/ 2,000</div>
                         <div class="label">Gran fiesta</div>
-                    </div>
-                    <div class="amount-btn" data-amount="2500">
+                    </button>
+                    <button type="button" class="amount-btn" data-amount="2500" aria-pressed="false">
                         <div class="price">S/ 2,500</div>
                         <div class="label">Corporativo</div>
-                    </div>
-                    <div class="amount-btn" data-amount="3000">
+                    </button>
+                    <button type="button" class="amount-btn" data-amount="3000" aria-pressed="false">
                         <div class="price">S/ 3,000</div>
                         <div class="label">Exclusivo</div>
-                    </div>
+                    </button>
                 </div>
             </div>
 
@@ -1236,12 +1268,12 @@
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Nombre completo <span class="required">*</span></label>
-                            <input type="text" class="form-input" id="buyerName" value="María Gómez" placeholder="Tu nombre">
+                            <label for="buyerName">Nombre completo <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="buyerName" placeholder="Tu nombre" required>
                         </div>
                         <div class="input-group">
-                            <label>Tu WhatsApp <span class="required">*</span></label>
-                            <input type="tel" class="form-input" id="buyerPhone" value="+51 987 654 321" placeholder="+51 9XX XXX XXX">
+                            <label for="buyerPhone">Tu WhatsApp <span class="required">*</span></label>
+                            <input type="tel" class="form-input" id="buyerPhone" placeholder="+51 9XX XXX XXX" required>
                         </div>
                     </div>
                 </div>
@@ -1253,12 +1285,12 @@
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Nombre del destinatario <span class="required">*</span></label>
-                            <input type="text" class="form-input" id="recipientName" placeholder="Nombre que aparecerá en la tarjeta">
+                            <label for="recipientName">Nombre del destinatario <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="recipientName" placeholder="Nombre que aparecerá en la tarjeta" required>
                         </div>
                         <div class="input-group">
-                            <label>Email del destinatario <span class="required">*</span></label>
-                            <input type="email" class="form-input" id="recipientEmail" placeholder="email@destinatario.com">
+                            <label for="recipientEmail">Email del destinatario <span class="required">*</span></label>
+                            <input type="email" class="form-input" id="recipientEmail" placeholder="email@destinatario.com" required>
                         </div>
                     </div>
                 </div>
@@ -1268,13 +1300,18 @@
                         <div class="step-badge">3</div>
                         <div class="step-title">Datos de pago</div>
                     </div>
+                    <div class="payment-info-box">
+                        <div class="payment-info-label">Transfiere a</div>
+                        <!-- TODO: reemplazar con los datos reales de pago del negocio (banco, cuenta, Yape/Plin) -->
+                        <div class="payment-info-value">BCP · Cuenta XXX-XXXXXXX-X-XX<br>Yape / Plin: +51 999 999 999</div>
+                    </div>
                     <div class="input-group">
-                        <label>Número de cuenta (transferencia) <span class="required">*</span></label>
+                        <label for="accountNumber">Número de cuenta con el que transferirás <span class="required">*</span></label>
                         <div class="account-input-wrapper">
                             <span class="account-prefix">N°</span>
-                            <input type="text" class="form-input" id="accountNumber" placeholder="Ingresa tu número de cuenta">
+                            <input type="text" class="form-input" id="accountNumber" placeholder="Tu número de cuenta" required>
                         </div>
-                        <div class="account-hint">Este número será verificado por nuestro encargado</div>
+                        <div class="account-hint">Nos sirve para verificar tu transferencia</div>
                     </div>
                 </div>
 
@@ -1284,7 +1321,8 @@
                         <div class="step-title">Mensaje (opcional)</div>
                     </div>
                     <div class="input-group">
-                        <textarea class="form-input" id="dedication" placeholder="Escribe un mensaje especial..."></textarea>
+                        <label for="dedication">Mensaje para el destinatario</label>
+                        <textarea class="form-input" id="dedication" placeholder="Escribe un mensaje especial..." maxlength="280"></textarea>
                         <div class="char-count"><span id="charCount">0</span> / 280</div>
                     </div>
                 </div>
@@ -1380,28 +1418,28 @@
                         <div class="pdf-back-code-label">Código de Serie</div>
                         <div class="pdf-back-code-value" id="pdfCode">XXXX-XXXX-XXXX-XXXX</div>
                     </div>
-                    <div class="pdf-back-barcodes">
-                        <svg id="pdfBarcode" width="120" height="45"></svg>
-                        <div id="pdfQR" style="width: 60px; height: 60px;"></div>
-                        <div class="pdf-back-barcodes-info">
-                            <div class="pdf-back-barcodes-label">Verificación</div>
-                            <div class="pdf-back-barcodes-text">Escanea el QR o usa el código de barras para verificar tu Gift Card.</div>
+                    <div class="pdf-back-scan-section">
+                        <svg id="pdfBarcode"></svg>
+                        <div id="pdfQR"></div>
+                        <div class="pdf-back-scan-info">
+                            <div class="pdf-back-scan-label">Verificación</div>
+                            <div class="pdf-back-scan-text">Escanea el QR o usa el código de barras para verificar tu Gift Card en cualquier sede de Fiesta Restaurant.</div>
                         </div>
                     </div>
-                    <div class="pdf-back-info-row">
+                    <div class="pdf-back-bottom">
                         <div class="pdf-back-contact">
                             <strong>Fiesta Restaurant</strong><br>
                             Contacto: +51 987 654 321<br>
                             Válida 12 meses desde la compra
                         </div>
+                        <img src="logo.png" alt="Fiesta" class="pdf-back-logo" id="pdfBackLogoImg">
                     </div>
                 </div>
                 <div>
                     <div class="pdf-back-terms">
                         Esta tarjeta es personal e intransferible. Válida únicamente en Fiesta Restaurant. 
-                        No puede ser canjeada por efectivo.
+                        No puede ser canjeada por efectivo. Sujeta a términos y condiciones.
                     </div>
-                    <img src="logo.png" alt="Fiesta" class="pdf-back-logo" id="pdfBackLogoImg">
                 </div>
             </div>
         </div>
@@ -1413,6 +1451,8 @@
     </footer>
 
     <script>
+        // TODO: reemplazar con las credenciales reales de tu cuenta EmailJS
+        // (dashboard.emailjs.com → Account → API Keys / Email Services / Email Templates)
         const EMAILJS_PUBLIC_KEY = 'TU_PUBLIC_KEY';
         const EMAILJS_SERVICE_ID = 'TU_SERVICE_ID';
         const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
@@ -1421,10 +1461,15 @@
             emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
         })();
 
+        // TODO: reemplazar con el WhatsApp real del encargado (código de país + número, sin "+")
         const WHATSAPP_NUMBER = '51987654321';
+
+        const giftCardForm = document.getElementById('giftCardForm');
+        // Evita que el Enter en un input recargue la página (el form no tiene botón submit real)
+        giftCardForm.addEventListener('submit', function(e) { e.preventDefault(); });
+
         let purchaseCompleted = false;
         let generatedCode = 'XXXX-XXXX-XXXX-XXXX';
-        let generatedCvv = '----';
 
         const amountBtns = document.querySelectorAll('.amount-btn');
         const cardAmount = document.getElementById('cardAmount');
@@ -1444,8 +1489,12 @@
         amountBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 if (purchaseCompleted) return;
-                amountBtns.forEach(b => b.classList.remove('active'));
+                amountBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
 
                 const amount = this.dataset.amount;
                 const formatted = parseInt(amount).toLocaleString();
@@ -1502,7 +1551,9 @@
             document.getElementById('summaryAccount').textContent = acc || '—';
         });
 
-        function generateUniqueCode() {
+        // Genera un código en el navegador, sin backend. Solo sirve como
+        // vista previa/respaldo — nunca se guarda en la base de datos.
+        function generateLocalCode() {
             const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             const segments = [];
             for (let s = 0; s < 4; s++) {
@@ -1515,23 +1566,42 @@
             return segments.join('-');
         }
 
-        function generateCVV() {
-            return Math.floor(1000 + Math.random() * 9000).toString();
+        // TODO: Integración real — el código de generateLocalCode() nunca se
+        // guarda en MySQL, así que no podría canjearse de verdad. Ajusta la
+        // URL de abajo a tu endpoint real (api/giftcards/generar.php) para
+        // que el código se genere y persista en la base de datos junto con
+        // su fecha de vencimiento. Si la llamada falla (o el backend aún no
+        // está listo), se usa un código local temporal como respaldo.
+        async function generateUniqueCode(amount) {
+            try {
+                const res = await fetch('/api/giftcards/generar.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ monto: amount })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.success && data.codigo) return data.codigo;
+                }
+            } catch (err) {
+                console.warn('No se pudo generar el código desde el backend, usando uno local temporal:', err);
+            }
+            return generateLocalCode();
         }
 
-        function generateBarcode(code, elementId, width, height) {
+        function generateBarcode(code, elementId, width, height, lineWidth) {
             try {
                 JsBarcode(`#${elementId}`, code.replace(/-/g, ''), {
                     format: "CODE128",
-                    width: 1,
-                    height: height,
+                    width: lineWidth || 1,
+                    height: height || 30,
                     displayValue: false,
                     background: "transparent",
                     lineColor: "#ffffff",
                     margin: 0
                 });
             } catch (e) {
-                console.error('Error generando código de barras:', e);
+                console.error('Error barcode:', e);
             }
         }
 
@@ -1541,14 +1611,14 @@
             try {
                 new QRCode(qrContainer, {
                     text: `https://fiesta-restaurant.com/verify/${code}`,
-                    width: size,
-                    height: size,
+                    width: size || 50,
+                    height: size || 50,
                     colorDark: "#ffffff",
                     colorLight: "transparent",
                     correctLevel: QRCode.CorrectLevel.M
                 });
             } catch (e) {
-                console.error('Error generando QR:', e);
+                console.error('Error QR:', e);
             }
         }
 
@@ -1566,14 +1636,13 @@
             try {
                 if (EMAILJS_PUBLIC_KEY !== 'TU_PUBLIC_KEY') {
                     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-                    console.log('Email enviado exitosamente a:', recipientEmail);
                     return true;
                 } else {
-                    console.log('EmailJS no configurado. Email simulado para:', recipientEmail);
+                    console.log('Email simulado para:', recipientEmail);
                     return true;
                 }
             } catch (error) {
-                console.error('Error enviando email:', error);
+                console.error('Error email:', error);
                 return false;
             }
         }
@@ -1591,18 +1660,17 @@
             const amountLabel = amountLabels[amount];
             const formatted = parseInt(amount).toLocaleString();
 
-            if (!buyerName || !buyerPhone || !recipientName || !recipientEmail || !accountNumber) {
-                alert('⚠️ Por favor completa todos los campos obligatorios:\n\n• Nombre completo\n• Tu WhatsApp\n• Nombre del destinatario\n• Email del destinatario\n• Número de cuenta');
+            if (!giftCardForm.checkValidity()) {
+                giftCardForm.reportValidity();
                 return;
             }
 
             const buyButton = document.getElementById('buyButton');
             buyButton.disabled = true;
-            buyButton.innerHTML = `<svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Procesando compra...`;
+            buyButton.innerHTML = `<svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Procesando...`;
 
             try {
-                generatedCode = generateUniqueCode();
-                generatedCvv = generateCVV();
+                generatedCode = await generateUniqueCode(amount);
 
                 document.getElementById('cardTitle').textContent = recipientName.toUpperCase();
                 document.getElementById('cardTitle').classList.remove('placeholder');
@@ -1612,15 +1680,20 @@
                 document.getElementById('backCode').textContent = generatedCode;
                 document.getElementById('backCode').classList.remove('locked');
                 
-                // Generar código de barras y QR con tamaños responsive
                 const isMobile = window.innerWidth <= 640;
-                const barcodeWidth = isMobile ? 80 : 120;
-                const barcodeHeight = isMobile ? 30 : 40;
-                const qrSize = isMobile ? 50 : 70;
                 
-                generateBarcode(generatedCode, 'backBarcode', barcodeWidth, barcodeHeight);
-                generateQR(generatedCode, 'backQR', qrSize);
+                // Código de barras adaptado al tamaño
+                generateBarcode(
+                    generatedCode, 
+                    'backBarcode', 
+                    isMobile ? 70 : 90, 
+                    isMobile ? 25 : 30, 
+                    isMobile ? 0.8 : 1
+                );
                 document.getElementById('backBarcodeNumber').textContent = generatedCode;
+                
+                // QR adaptado
+                generateQR(generatedCode, 'backQR', isMobile ? 45 : 55);
 
                 document.getElementById('cardFlipper').classList.add('flipped');
                 document.getElementById('flipHint').classList.add('hidden');
@@ -1630,13 +1703,13 @@
                 document.getElementById('pdfCode').textContent = generatedCode;
 
                 setTimeout(() => {
-                    generateBarcode(generatedCode, 'pdfBarcode', 120, 45);
-                    generateQR(generatedCode, 'pdfQR', 60);
-                }, 100);
+                    generateBarcode(generatedCode, 'pdfBarcode', 140, 45, 1.5);
+                    generateQR(generatedCode, 'pdfQR', 65);
+                }, 150);
 
                 purchaseCompleted = true;
 
-                await new Promise(resolve => setTimeout(resolve, 800));
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
                 await downloadPDF(recipientName, formatted);
 
@@ -1647,15 +1720,15 @@
                 }, 1500);
 
                 if (emailSent) {
-                    alert(`✅ ¡Compra exitosa!\n\n PDF descargado\n📧 Gift Card enviada a: ${recipientEmail}\n🔑 Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
+                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n📧 Enviado a: ${recipientEmail}\n🔑 Código: ${generatedCode}`);
                 } else {
-                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n️ El email no pudo enviarse (configura EmailJS)\n🔑 Código: ${generatedCode}\n\nEl encargado verificará tu pago y activará el código.`);
+                    alert(`✅ ¡Compra exitosa!\n\n📄 PDF descargado\n⚠️ Email no enviado (configura EmailJS)\n🔑 Código: ${generatedCode}`);
                 }
 
                 buyButton.innerHTML = '✓ Compra Completada';
             } catch (error) {
                 console.error('Error:', error);
-                alert('❌ Error al procesar la compra. Por favor intenta de nuevo.');
+                alert('❌ Error al procesar la compra.');
                 buyButton.disabled = false;
                 buyButton.innerHTML = `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Confirmar Compra y Enviar`;
             }
@@ -1663,7 +1736,6 @@
 
         async function downloadPDF(recipientName, formatted) {
             const fileName = `GiftCard_Fiesta_${(recipientName || 'Cliente').replace(/\s+/g, '_')}_${generatedCode}.pdf`;
-            
             const template = document.getElementById('pdf-template');
             
             const opt = {
@@ -1685,40 +1757,19 @@
                 }
             };
 
-            try {
-                await html2pdf().set(opt).from(template).save();
-                console.log('PDF generado exitosamente');
-            } catch (err) {
-                console.error('Error generando PDF:', err);
-                throw err;
-            }
+            await html2pdf().set(opt).from(template).save();
         }
 
         function sendToWhatsApp(buyerName, buyerPhone, recipientName, recipientEmail, accountNumber, dedicationText, amount, amountLabel, formatted, code) {
-            let message = `🎁 *NUEVA COMPRA DE GIFT CARD*\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            message += `*Monto:* S/ ${formatted} (${amountLabel})\n`;
-            message += `*Código generado:* ${code}\n\n`;
-            message += `👤 *COMPRADOR*\n`;
-            message += `• Nombre: ${buyerName}\n`;
-            message += `• WhatsApp: ${buyerPhone}\n\n`;
-            message += `🎯 *DESTINATARIO*\n`;
-            message += `• Nombre: ${recipientName}\n`;
-            message += `• Email: ${recipientEmail}\n\n`;
-            message += `🏦 *PAGO*\n`;
-            message += `• N° Cuenta: ${accountNumber}\n\n`;
+            let message = `🎁 *NUEVA COMPRA DE GIFT CARD*\n━━━━━━━━━━━━━━━━━━━━\n\n`;
+            message += `*Monto:* S/ ${formatted} (${amountLabel})\n*Código:* ${code}\n\n`;
+            message += `👤 *COMPRADOR*\n• Nombre: ${buyerName}\n• WhatsApp: ${buyerPhone}\n\n`;
+            message += ` *DESTINATARIO*\n• Nombre: ${recipientName}\n• Email: ${recipientEmail}\n\n`;
+            message += `🏦 *PAGO*\n• N° Cuenta: ${accountNumber}\n\n`;
+            if (dedicationText) message += `💌 *MENSAJE*\n"${dedicationText}"\n\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n✅ Email enviado · 📄 PDF descargado\n\nPor favor verificar pago y activar código.`;
 
-            if (dedicationText) {
-                message += `💌 *MENSAJE*\n"${dedicationText}"\n\n`;
-            }
-
-            message += `━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `✅ Email enviado al destinatario\n`;
-            message += `📄 PDF descargado por el cliente\n\n`;
-            message += `Por favor verificar pago y activar código.`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         }
     </script>
 </body>
