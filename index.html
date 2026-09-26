@@ -323,6 +323,7 @@
             color: #ffffff;
             text-shadow: 0 2px 12px rgba(0,0,0,0.8);
             letter-spacing: -0.5px;
+            white-space: nowrap;
         }
 
         /* ========== REVERSO REDISEÑADO ========== */
@@ -1239,6 +1240,8 @@
             .card-title-value { font-size: 1.1rem; }
             .card-title-value.placeholder { font-size: 0.95rem; }
             .card-holder-name { font-size: 0.75rem; }
+            .card-amount-value { font-size: 1.25rem; }
+            .card-valid-value { font-size: 0.7rem; }
             .card-pato-bg { width: 100%; right: -5%; bottom: 0; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
         }
@@ -1308,7 +1311,7 @@
                             </div>
                             <div>
                                 <div class="card-amount-label">Monto</div>
-                                <div class="card-amount-value" id="cardAmount">S/ 1,000</div>
+                                <div class="card-amount-value" id="cardAmount">S/. 1,000</div>
                             </div>
                         </div>
                     </div>
@@ -1381,27 +1384,27 @@
                 <div class="section-label">Seleccionar Monto</div>
                 <div class="amount-grid">
                     <button type="button" class="amount-btn" data-amount="500" aria-pressed="false">
-                        <div class="price">S/ 500</div>
+                        <div class="price">S/. 500</div>
                         <div class="label">Cena íntima</div>
                     </button>
                     <button type="button" class="amount-btn active" data-amount="1000" aria-pressed="true">
-                        <div class="price">S/ 1,000</div>
+                        <div class="price">S/. 1,000</div>
                         <div class="label">Celebración</div>
                     </button>
                     <button type="button" class="amount-btn" data-amount="1500" aria-pressed="false">
-                        <div class="price">S/ 1,500</div>
+                        <div class="price">S/. 1,500</div>
                         <div class="label">Evento especial</div>
                     </button>
                     <button type="button" class="amount-btn" data-amount="2000" aria-pressed="false">
-                        <div class="price">S/ 2,000</div>
+                        <div class="price">S/. 2,000</div>
                         <div class="label">Gran fiesta</div>
                     </button>
                     <button type="button" class="amount-btn" data-amount="2500" aria-pressed="false">
-                        <div class="price">S/ 2,500</div>
+                        <div class="price">S/. 2,500</div>
                         <div class="label">Corporativo</div>
                     </button>
                     <button type="button" class="amount-btn" data-amount="3000" aria-pressed="false">
-                        <div class="price">S/ 3,000</div>
+                        <div class="price">S/. 3,000</div>
                         <div class="label">Exclusivo</div>
                     </button>
                 </div>
@@ -1500,7 +1503,7 @@
                 <div class="summary-box">
                     <div class="summary-row">
                         <span>Gift Card · <span id="summaryLabel">Celebración</span></span>
-                        <span id="summaryAmount">S/ 1,000</span>
+                        <span id="summaryAmount">S/. 1,000</span>
                     </div>
                     <div class="summary-row">
                         <span>Para · <span id="summaryRecipient">—</span></span>
@@ -1517,7 +1520,7 @@
                     <div class="summary-divider"></div>
                     <div class="summary-total">
                         <span class="label">Total a pagar</span>
-                        <span class="value" id="totalAmount">S/ 1,000</span>
+                        <span class="value" id="totalAmount">S/. 1,000</span>
                     </div>
                 </div>
 
@@ -1584,7 +1587,7 @@
                     </div>
                     <div>
                         <div class="pdf-amount-label">Monto</div>
-                        <div class="pdf-amount-value" id="pdfAmount">S/ 1,000</div>
+                        <div class="pdf-amount-value" id="pdfAmount">S/. 1,000</div>
                     </div>
                 </div>
             </div>
@@ -1699,10 +1702,10 @@
                 const formatted = parseInt(amount).toLocaleString();
                 const label = amountLabels[amount];
 
-                cardAmount.textContent = `S/ ${formatted}`;
+                cardAmount.textContent = `S/. ${formatted}`;
                 summaryLabel.textContent = label;
-                summaryAmount.textContent = `S/ ${formatted}`;
-                totalAmount.textContent = `S/ ${formatted}`;
+                summaryAmount.textContent = `S/. ${formatted}`;
+                totalAmount.textContent = `S/. ${formatted}`;
             });
         });
 
@@ -1715,13 +1718,9 @@
             const email = recipientEmailInput.value.trim();
 
             if (name) {
-                document.getElementById('cardTitle').textContent = name.toUpperCase();
-                document.getElementById('cardTitle').classList.remove('placeholder');
                 document.getElementById('cardHolder').textContent = name.toUpperCase();
                 document.getElementById('cardHolder').classList.remove('placeholder');
             } else {
-                document.getElementById('cardTitle').textContent = 'EXPERIENCIA GASTRONÓMICA';
-                document.getElementById('cardTitle').classList.add('placeholder');
                 document.getElementById('cardHolder').textContent = '— — — — — —';
                 document.getElementById('cardHolder').classList.add('placeholder');
             }
@@ -1827,7 +1826,7 @@
                 to_email: recipientEmail,
                 from_name: buyerName,
                 gift_card_code: code,
-                gift_card_amount: `S/ ${parseInt(amount).toLocaleString()}`,
+                gift_card_amount: `S/. ${parseInt(amount).toLocaleString()}`,
                 message: dedicationText || '¡Disfruta tu experiencia en Fiesta Restaurant!',
                 reply_to: 'contacto@fiesta-restaurant.com'
             };
@@ -1871,8 +1870,6 @@
             try {
                 generatedCode = await generateUniqueCode(amount);
 
-                document.getElementById('cardTitle').textContent = recipientName.toUpperCase();
-                document.getElementById('cardTitle').classList.remove('placeholder');
                 document.getElementById('cardHolder').textContent = recipientName.toUpperCase();
                 document.getElementById('cardHolder').classList.remove('placeholder');
 
@@ -1904,7 +1901,6 @@
                 setCardFlipped(true);
                 flipHint.classList.add('hidden');
 
-                document.getElementById('pdfTitle').textContent = recipientName.toUpperCase();
                 document.getElementById('pdfHolder').textContent = recipientName.toUpperCase();
                 document.getElementById('pdfCode').textContent = generatedCode;
 
@@ -1968,7 +1964,7 @@
 
         function sendToWhatsApp(buyerName, buyerPhone, recipientName, recipientEmail, accountNumber, dedicationText, amount, amountLabel, formatted, code) {
             let message = `🎁 *NUEVA COMPRA DE GIFT CARD*\n━━━━━━━━━━━━━━━━━━━━\n\n`;
-            message += `*Monto:* S/ ${formatted} (${amountLabel})\n*Código:* ${code}\n\n`;
+            message += `*Monto:* S/. ${formatted} (${amountLabel})\n*Código:* ${code}\n\n`;
             message += `👤 *COMPRADOR*\n• Nombre: ${buyerName}\n• WhatsApp: ${buyerPhone}\n\n`;
             message += ` *DESTINATARIO*\n• Nombre: ${recipientName}\n• Email: ${recipientEmail}\n\n`;
             message += `🏦 *PAGO*\n• N° Cuenta: ${accountNumber}\n\n`;
