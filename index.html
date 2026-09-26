@@ -95,6 +95,32 @@
             perspective: 1500px;
             margin: 0 auto;
         }
+        .card-float {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: cardFloat 4s ease-in-out infinite;
+        }
+        .card-float-shadow {
+            position: absolute;
+            left: 50%;
+            bottom: -22px;
+            width: 80%;
+            height: 22px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(5px);
+            z-index: -1;
+            animation: cardFloatShadow 4s ease-in-out infinite;
+        }
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+        @keyframes cardFloatShadow {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+            50% { transform: translateX(-50%) scale(0.8); opacity: 0.3; }
+        }
         .card-flipper {
             width: 100%;
             height: 100%;
@@ -111,9 +137,11 @@
             -webkit-backface-visibility: hidden;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 25px 60px -10px rgba(0,0,0,0.7),
+            box-shadow: 0 0 25px rgba(0,0,0,0.5),
+                        0 0 60px rgba(0,0,0,0.35),
                         0 0 0 1px rgba(201,169,110,0.2),
-                        inset 0 1px 0 rgba(255,255,255,0.1);
+                        inset 0 1px 0 rgba(255,255,255,0.1),
+                        inset 0 -3px 6px rgba(0,0,0,0.35);
         }
         .card-front {
             background: linear-gradient(145deg, #2a1f14 0%, #1f1610 40%, #141008 100%);
@@ -168,7 +196,8 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 70% 60%, rgba(180,120,60,0.08) 0%, transparent 50%),
+            background: radial-gradient(ellipse at 18% 12%, rgba(255,255,255,0.10) 0%, transparent 30%),
+                        radial-gradient(ellipse at 70% 60%, rgba(180,120,60,0.08) 0%, transparent 50%),
                         linear-gradient(180deg, rgba(20,16,8,0.2) 0%, rgba(20,16,8,0.05) 30%, rgba(20,16,8,0.15) 70%, rgba(20,16,8,0.35) 100%);
             z-index: 2;
         }
@@ -205,6 +234,25 @@
             background: rgba(0,0,0,0.3);
         }
         .card-brand-logo { height: 34px; width: auto; }
+        .front-top-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .contactless-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.85;
+            transform: rotate(-45deg);
+        }
+        .card-valid-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 -1px 0 rgba(255,255,255,0.2), 0 2px 10px rgba(0,0,0,0.8);
+        }
         .front-middle {
             position: relative;
             z-index: 4;
@@ -257,10 +305,10 @@
         .card-holder-name {
             font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 -1px 0 rgba(255,255,255,0.2), 0 2px 10px rgba(0,0,0,0.8);
         }
         .card-holder-name.placeholder {
             color: rgba(255,255,255,0.6);
@@ -427,6 +475,40 @@
             color: rgba(255,255,255,0.7);
             line-height: 1.3;
         }
+        .back-unlockable { position: relative; }
+        .back-locked-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(20,16,8,0.8);
+            backdrop-filter: blur(2px);
+            border-radius: 10px;
+            text-align: center;
+            padding: 0.5rem;
+            transition: opacity 0.4s;
+            z-index: 5;
+        }
+        .back-locked-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .lock-icon {
+            width: 22px;
+            height: 22px;
+            stroke: #c9a96e;
+            fill: none;
+            stroke-width: 1.8;
+        }
+        .back-locked-text {
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+        }
         /* Info inferior */
         .back-bottom {
             display: flex;
@@ -452,6 +534,40 @@
             font-style: italic;
         }
         .flip-hint.hidden { opacity: 0; }
+        .flip-controls { text-align: center; margin-top: 1.25rem; }
+        .flip-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(201,169,110,0.3);
+            border-radius: 100px;
+            color: rgba(255,255,255,0.75);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .flip-toggle-btn:hover {
+            background: rgba(201,169,110,0.08);
+            border-color: rgba(201,169,110,0.5);
+            color: #ffffff;
+        }
+        .flip-toggle-btn:focus-visible {
+            outline: 2px solid rgba(201,169,110,0.6);
+            outline-offset: 2px;
+        }
+        .flip-toggle-btn svg {
+            width: 14px; height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .flip-toggle-btn.is-flipped svg { transform: rotateY(180deg); }
         .amount-section { margin-top: 2.5rem; }
         .amount-grid {
             display: grid;
@@ -821,7 +937,7 @@
             position: relative;
             overflow: hidden;
             margin: 0 auto;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5), 0 0 70px rgba(0,0,0,0.35);
             background: linear-gradient(145deg, #2a1f14 0%, #1f1610 40%, #141008 100%);
         }
         .pdf-card::before {
@@ -852,7 +968,8 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 70% 60%, rgba(180,120,60,0.08) 0%, transparent 50%),
+            background: radial-gradient(ellipse at 18% 12%, rgba(255,255,255,0.10) 0%, transparent 30%),
+                        radial-gradient(ellipse at 70% 60%, rgba(180,120,60,0.08) 0%, transparent 50%),
                         linear-gradient(180deg, rgba(20,16,8,0.2) 0%, rgba(20,16,8,0.05) 30%, rgba(20,16,8,0.15) 70%, rgba(20,16,8,0.35) 100%);
             z-index: 2;
         }
@@ -895,6 +1012,25 @@
             background: rgba(0,0,0,0.3);
         }
         .pdf-logo { height: 38px; width: auto; }
+        .pdf-top-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .pdf-contactless-icon {
+            width: 28px;
+            height: 28px;
+            opacity: 0.85;
+            transform: rotate(-45deg);
+        }
+        .pdf-valid-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
         .pdf-middle {
             flex: 1;
             display: flex;
@@ -954,7 +1090,7 @@
             position: relative;
             overflow: hidden;
             margin: 30px auto 0;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5), 0 0 70px rgba(0,0,0,0.35);
             background: linear-gradient(145deg, #2a1f14 0%, #1f1610 40%, #141008 100%);
         }
         .pdf-back::before {
@@ -1137,6 +1273,7 @@
             </div>
 
             <div class="card-scene">
+                <div class="card-float">
                 <div class="card-flipper" id="cardFlipper">
                     <div class="card-face card-front">
                         <img src="pato.png" alt="" class="card-pato-bg">
@@ -1144,19 +1281,30 @@
                         <div class="card-shine"></div>
 
                         <div class="front-top">
-                            <div class="card-chip"></div>
+                            <div class="front-top-left">
+                                <div class="card-chip"></div>
+                                <svg class="contactless-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round">
+                                    <path d="M6 8.5a8 8 0 0 1 0 7"/>
+                                    <path d="M9.5 6a12 12 0 0 1 0 12"/>
+                                    <path d="M13 4a16 16 0 0 1 0 16"/>
+                                </svg>
+                            </div>
                             <img src="logo.png" alt="Fiesta Restaurant" class="card-brand-logo">
                         </div>
 
                         <div class="front-middle">
                             <div class="card-title-label">Gift Card Digital</div>
-                            <div class="card-title-value placeholder" id="cardTitle">COMPRA DE GIFT CARD</div>
+                            <div class="card-title-value placeholder" id="cardTitle">EXPERIENCIA GASTRONÓMICA</div>
                         </div>
 
                         <div class="front-bottom">
                             <div>
                                 <div class="card-holder-label">Titular</div>
                                 <div class="card-holder-name placeholder" id="cardHolder">— — — — — —</div>
+                            </div>
+                            <div>
+                                <div class="card-holder-label">Válida hasta</div>
+                                <div class="card-valid-value" id="cardValidUntil">--/--</div>
                             </div>
                             <div>
                                 <div class="card-amount-label">Monto</div>
@@ -1168,27 +1316,37 @@
                     <div class="card-face card-back">
                         <div class="back-magnetic-strip"></div>
                         <div class="back-content">
-                            <!-- Código de serie -->
-                            <div class="back-code-box">
-                                <div class="back-code-label">Código de Serie</div>
-                                <div class="back-code-value locked" id="backCode">XXXX-XXXX-XXXX-XXXX</div>
-                            </div>
-
-                            <!-- Código de barras -->
-                            <div class="back-barcode-box">
-                                <svg id="backBarcode"></svg>
-                                <div class="back-barcode-info">
-                                    <div class="back-barcode-info-label">Código de Barras</div>
-                                    <div class="back-barcode-info-number" id="backBarcodeNumber">— — — — — —</div>
+                            <div class="back-unlockable" id="backUnlockable">
+                                <!-- Código de serie -->
+                                <div class="back-code-box">
+                                    <div class="back-code-label">Código de Serie</div>
+                                    <div class="back-code-value locked" id="backCode">XXXX-XXXX-XXXX-XXXX</div>
                                 </div>
-                            </div>
 
-                            <!-- QR -->
-                            <div class="back-qr-box">
-                                <div id="backQR"></div>
-                                <div class="back-qr-info">
-                                    <div class="back-qr-info-label">Código QR</div>
-                                    <div class="back-qr-info-text">Escanea para verificar tu Gift Card</div>
+                                <!-- Código de barras -->
+                                <div class="back-barcode-box">
+                                    <svg id="backBarcode"></svg>
+                                    <div class="back-barcode-info">
+                                        <div class="back-barcode-info-label">Código de Barras</div>
+                                        <div class="back-barcode-info-number" id="backBarcodeNumber">— — — — — —</div>
+                                    </div>
+                                </div>
+
+                                <!-- QR -->
+                                <div class="back-qr-box">
+                                    <div id="backQR"></div>
+                                    <div class="back-qr-info">
+                                        <div class="back-qr-info-label">Código QR</div>
+                                        <div class="back-qr-info-text">Escanea para verificar tu Gift Card</div>
+                                    </div>
+                                </div>
+
+                                <div class="back-locked-overlay" id="backLockedOverlay">
+                                    <svg class="lock-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="4" y="11" width="16" height="10" rx="2"/>
+                                        <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                                    </svg>
+                                    <div class="back-locked-text">🔑 Se desbloquea al<br>finalizar tu compra</div>
                                 </div>
                             </div>
 
@@ -1203,9 +1361,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-float-shadow"></div>
+                </div>
             </div>
 
-            <div class="flip-hint" id="flipHint">↻ La tarjeta se voltea al completar la compra</div>
+            <div class="flip-controls">
+                <button type="button" class="flip-toggle-btn" id="flipToggleBtn" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                        <path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                    </svg>
+                    <span id="flipToggleLabel">Ver reverso</span>
+                </button>
+            </div>
+
+            <div class="flip-hint" id="flipHint">↻ La tarjeta se voltea automáticamente al completar la compra</div>
 
             <div class="amount-section">
                 <div class="section-label">Seleccionar Monto</div>
@@ -1389,17 +1559,28 @@
             <div class="pdf-overlay"></div>
             <div class="pdf-content">
                 <div class="pdf-top">
-                    <div class="pdf-chip"></div>
+                    <div class="pdf-top-left">
+                        <div class="pdf-chip"></div>
+                        <svg class="pdf-contactless-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M6 8.5a8 8 0 0 1 0 7"/>
+                            <path d="M9.5 6a12 12 0 0 1 0 12"/>
+                            <path d="M13 4a16 16 0 0 1 0 16"/>
+                        </svg>
+                    </div>
                     <img src="logo.png" alt="Fiesta" class="pdf-logo" id="pdfLogoImg">
                 </div>
                 <div class="pdf-middle">
                     <div class="pdf-title-label">Gift Card Digital</div>
-                    <div class="pdf-title-value" id="pdfTitle">COMPRA DE GIFT CARD</div>
+                    <div class="pdf-title-value" id="pdfTitle">EXPERIENCIA GASTRONÓMICA</div>
                 </div>
                 <div class="pdf-bottom">
                     <div>
                         <div class="pdf-holder-label">Titular</div>
                         <div class="pdf-holder-name" id="pdfHolder">— — — — — —</div>
+                    </div>
+                    <div>
+                        <div class="pdf-holder-label">Válida hasta</div>
+                        <div class="pdf-valid-value" id="pdfValidUntil">--/--</div>
                     </div>
                     <div>
                         <div class="pdf-amount-label">Monto</div>
@@ -1471,6 +1652,24 @@
         let purchaseCompleted = false;
         let generatedCode = 'XXXX-XXXX-XXXX-XXXX';
 
+        const cardFlipper = document.getElementById('cardFlipper');
+        const flipToggleBtn = document.getElementById('flipToggleBtn');
+        const flipToggleLabel = document.getElementById('flipToggleLabel');
+        const flipHint = document.getElementById('flipHint');
+        let cardIsFlipped = false;
+
+        function setCardFlipped(flipped) {
+            cardIsFlipped = flipped;
+            cardFlipper.classList.toggle('flipped', flipped);
+            flipToggleBtn.classList.toggle('is-flipped', flipped);
+            flipToggleBtn.setAttribute('aria-pressed', String(flipped));
+            flipToggleLabel.textContent = flipped ? 'Ver anverso' : 'Ver reverso';
+        }
+
+        flipToggleBtn.addEventListener('click', function() {
+            setCardFlipped(!cardIsFlipped);
+        });
+
         const amountBtns = document.querySelectorAll('.amount-btn');
         const cardAmount = document.getElementById('cardAmount');
         const summaryLabel = document.getElementById('summaryLabel');
@@ -1521,7 +1720,7 @@
                 document.getElementById('cardHolder').textContent = name.toUpperCase();
                 document.getElementById('cardHolder').classList.remove('placeholder');
             } else {
-                document.getElementById('cardTitle').textContent = 'COMPRA DE GIFT CARD';
+                document.getElementById('cardTitle').textContent = 'EXPERIENCIA GASTRONÓMICA';
                 document.getElementById('cardTitle').classList.add('placeholder');
                 document.getElementById('cardHolder').textContent = '— — — — — —';
                 document.getElementById('cardHolder').classList.add('placeholder');
@@ -1679,6 +1878,13 @@
 
                 document.getElementById('backCode').textContent = generatedCode;
                 document.getElementById('backCode').classList.remove('locked');
+                document.getElementById('backLockedOverlay').classList.add('hidden');
+
+                const now = new Date();
+                const expiry = new Date(now.getFullYear(), now.getMonth() + 12, now.getDate());
+                const expiryLabel = `${String(expiry.getMonth() + 1).padStart(2, '0')}/${String(expiry.getFullYear()).slice(-2)}`;
+                document.getElementById('cardValidUntil').textContent = expiryLabel;
+                document.getElementById('pdfValidUntil').textContent = expiryLabel;
                 
                 const isMobile = window.innerWidth <= 640;
                 
@@ -1695,8 +1901,8 @@
                 // QR adaptado
                 generateQR(generatedCode, 'backQR', isMobile ? 45 : 55);
 
-                document.getElementById('cardFlipper').classList.add('flipped');
-                document.getElementById('flipHint').classList.add('hidden');
+                setCardFlipped(true);
+                flipHint.classList.add('hidden');
 
                 document.getElementById('pdfTitle').textContent = recipientName.toUpperCase();
                 document.getElementById('pdfHolder').textContent = recipientName.toUpperCase();
